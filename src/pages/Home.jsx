@@ -1,10 +1,14 @@
 import { useEffect, useState } from 'react'
 import { useNavigate } from 'react-router-dom'
+import useWindowSize from '../hooks/useWindowSize'
 
 function Home() {
 
   // useNavigate lets us go to another page programmatically
   const navigate = useNavigate()
+
+  // Get current screen size
+  const { isMobile, isTablet, isDesktop } = useWindowSize()
 
   // ================================================
   // COUNTDOWN TIMER
@@ -25,9 +29,7 @@ function Home() {
     const tick = () => {
       const now = new Date()
       const diff = electionDate - now
-
       if (diff <= 0) return
-
       setTimeLeft({
         days: Math.floor(diff / 86400000),
         hours: Math.floor((diff % 86400000) / 3600000),
@@ -66,18 +68,14 @@ function Home() {
 
     const timeout = setTimeout(() => {
       if (!twDeleting) {
-        // Still typing forward
         setTwChar((c) => c + 1)
         setTwText(current.substring(0, twChar + 1))
-        // If finished typing, wait then start deleting
         if (twChar + 1 === current.length) {
           setTimeout(() => setTwDeleting(true), 2200)
         }
       } else {
-        // Deleting backwards
         setTwChar((c) => c - 1)
         setTwText(current.substring(0, twChar - 1))
-        // If fully deleted, move to next message
         if (twChar - 1 === 0) {
           setTwDeleting(false)
           setTwIndex((i) => (i + 1) % messages.length)
@@ -98,12 +96,14 @@ function Home() {
       border: '1px solid #e0e0e0',
       borderBottom: '2px solid #cc0000',
       borderRadius: '4px',
-      padding: '6px 12px',
+      // Smaller padding on mobile, bigger on desktop
+      padding: isMobile ? '4px 10px' : '6px 14px',
       textAlign: 'center',
-      minWidth: '58px',
+      minWidth: isMobile ? '46px' : '60px',
     }}>
       <span style={{
-        fontSize: '22px',
+        // Smaller font on mobile, bigger on desktop
+        fontSize: isMobile ? '16px' : isTablet ? '20px' : '24px',
         fontWeight: 700,
         color: '#8b0000',
         display: 'block',
@@ -113,7 +113,7 @@ function Home() {
         {String(value).padStart(2, '0')}
       </span>
       <span style={{
-        fontSize: '9px',
+        fontSize: isMobile ? '8px' : '9px',
         color: '#999',
         textTransform: 'uppercase',
         letterSpacing: '0.06em',
@@ -129,10 +129,12 @@ function Home() {
       {/* ================================================ */}
       {/* HERO SECTION                                     */}
       {/* Full width banner with background image         */}
+      {/* Height changes based on screen size             */}
       {/* ================================================ */}
       <div style={{
         position: 'relative',
-        height: '280px',
+        // Taller hero on bigger screens
+        height: isMobile ? '280px' : isTablet ? '340px' : '400px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -155,17 +157,18 @@ function Home() {
           background: 'rgba(80,0,0,0.65)',
         }} />
 
-        {/* Hero content */}
+        {/* Hero content — centered, max width on desktop */}
         <div style={{
           position: 'relative',
           textAlign: 'center',
-          padding: '0 20px',
+          padding: isMobile ? '0 20px' : '0 60px',
           width: '100%',
+          maxWidth: isDesktop ? '900px' : '100%',
         }}>
 
-          {/* Small label above the title */}
+          {/* Small label above title */}
           <div style={{
-            fontSize: '10px',
+            fontSize: isMobile ? '10px' : '12px',
             color: '#ffaaaa',
             letterSpacing: '0.12em',
             textTransform: 'uppercase',
@@ -174,9 +177,9 @@ function Home() {
             Official SK Halalan 2025
           </div>
 
-          {/* Main title */}
+          {/* Main title — bigger on desktop */}
           <h1 style={{
-            fontSize: '26px',
+            fontSize: isMobile ? '26px' : isTablet ? '36px' : '48px',
             fontWeight: 700,
             color: '#fff',
             fontFamily: 'Georgia, serif',
@@ -188,27 +191,28 @@ function Home() {
 
           {/* Subtitle */}
           <p style={{
-            fontSize: '12px',
+            fontSize: isMobile ? '12px' : '14px',
             color: '#ffcccc',
             marginBottom: '12px',
           }}>
             Candaba, Pampanga · November 2025
           </p>
 
-          {/* Typewriter box */}
+          {/* Typewriter box — wider on desktop */}
           <div style={{
             background: 'rgba(255,255,255,0.1)',
             border: '0.5px solid rgba(255,255,255,0.2)',
             borderRadius: '6px',
             padding: '8px 14px',
             margin: '0 auto 14px',
-            maxWidth: '300px',
+            maxWidth: isMobile ? '300px' : '480px',
             minHeight: '36px',
             display: 'flex',
             alignItems: 'center',
+            justifyContent: 'center',
           }}>
             <span style={{
-              fontSize: '12px',
+              fontSize: isMobile ? '12px' : '14px',
               color: '#ffe0e0',
               fontStyle: 'italic',
             }}>
@@ -238,9 +242,9 @@ function Home() {
                 background: '#cc0000',
                 color: '#fff',
                 border: 'none',
-                padding: '10px 20px',
+                padding: isMobile ? '10px 20px' : '12px 28px',
                 borderRadius: '4px',
-                fontSize: '13px',
+                fontSize: isMobile ? '13px' : '15px',
                 fontWeight: 600,
                 cursor: 'pointer',
               }}
@@ -254,9 +258,9 @@ function Home() {
                 background: 'transparent',
                 color: '#fff',
                 border: '1px solid rgba(255,255,255,0.4)',
-                padding: '10px 20px',
+                padding: isMobile ? '10px 20px' : '12px 28px',
                 borderRadius: '4px',
-                fontSize: '13px',
+                fontSize: isMobile ? '13px' : '15px',
                 cursor: 'pointer',
               }}
             >
@@ -274,7 +278,7 @@ function Home() {
       <div style={{
         background: '#f8f8f8',
         borderBottom: '1px solid #eee',
-        padding: '12px 20px',
+        padding: isMobile ? '12px 20px' : '14px 32px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -320,12 +324,12 @@ function Home() {
           { number: 'Nov 2025', label: 'Election Date' },
         ].map((stat, i) => (
           <div key={i} style={{
-            padding: '14px',
+            padding: isMobile ? '14px' : '18px',
             textAlign: 'center',
             borderRight: i < 2 ? '0.5px solid rgba(255,255,255,0.15)' : 'none',
           }}>
             <div style={{
-              fontSize: '20px',
+              fontSize: isMobile ? '20px' : '26px',
               fontWeight: 700,
               color: '#fff',
               fontFamily: 'Georgia, serif',
@@ -333,7 +337,7 @@ function Home() {
               {stat.number}
             </div>
             <div style={{
-              fontSize: '10px',
+              fontSize: isMobile ? '10px' : '11px',
               color: '#ffcccc',
               marginTop: '2px',
               textTransform: 'uppercase',
@@ -346,111 +350,118 @@ function Home() {
       </div>
 
       {/* ================================================ */}
-      {/* ABOUT SECTION                                    */}
-      {/* Brief description of SK Halalan 2025            */}
+      {/* ABOUT + INFO CARDS                               */}
+      {/* Side by side on desktop, stacked on mobile      */}
       {/* ================================================ */}
       <div style={{
-        padding: '20px',
-        background: '#fff',
+        display: isDesktop ? 'grid' : 'block',
+        // On desktop: 2 columns side by side
+        // On mobile/tablet: stacked
+        gridTemplateColumns: isDesktop ? '1fr 1fr' : undefined,
         borderBottom: '0.5px solid #eee',
       }}>
-        <div style={{
-          fontSize: '14px',
-          fontWeight: 700,
-          color: '#8b0000',
-          fontFamily: 'Georgia, serif',
-          marginBottom: '8px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
-        }}>
-          <span style={{
-            display: 'block',
-            width: '3px',
-            height: '16px',
-            background: '#cc0000',
-            borderRadius: '2px',
-          }} />
-          About SK Halalan 2025
-        </div>
-        <p style={{
-          fontSize: '13px',
-          color: '#555',
-          lineHeight: 1.8,
-        }}>
-          The Sangguniang Kabataan Halalan 2025 is the official youth elections
-          for the Municipality of Candaba, Pampanga. This platform serves as the
-          official information resource for voters to learn about candidates.
-        </p>
-      </div>
 
-      {/* ================================================ */}
-      {/* INFO CARDS                                       */}
-      {/* 4 key details about the election               */}
-      {/* ================================================ */}
-      <div style={{
-        padding: '20px',
-        background: '#fafafa',
-        borderBottom: '0.5px solid #eee',
-      }}>
+        {/* About section */}
         <div style={{
-          fontSize: '14px',
-          fontWeight: 700,
-          color: '#8b0000',
-          fontFamily: 'Georgia, serif',
-          marginBottom: '12px',
-          display: 'flex',
-          alignItems: 'center',
-          gap: '8px',
+          padding: isMobile ? '20px' : '28px 32px',
+          background: '#fff',
+          borderRight: isDesktop ? '0.5px solid #eee' : 'none',
+          borderBottom: isDesktop ? 'none' : '0.5px solid #eee',
         }}>
-          <span style={{
-            display: 'block',
-            width: '3px',
-            height: '16px',
-            background: '#cc0000',
-            borderRadius: '2px',
-          }} />
-          Election Details
+          <div style={{
+            fontSize: isMobile ? '14px' : '16px',
+            fontWeight: 700,
+            color: '#8b0000',
+            fontFamily: 'Georgia, serif',
+            marginBottom: '8px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}>
+            <span style={{
+              display: 'block',
+              width: '3px',
+              height: '16px',
+              background: '#cc0000',
+              borderRadius: '2px',
+            }} />
+            About SK Halalan 2025
+          </div>
+          <p style={{
+            fontSize: isMobile ? '13px' : '14px',
+            color: '#555',
+            lineHeight: 1.8,
+          }}>
+            The Sangguniang Kabataan Halalan 2025 is the official youth elections
+            for the Municipality of Candaba, Pampanga. This platform serves as the
+            official information resource for voters to learn about candidates.
+          </p>
         </div>
 
+        {/* Info cards */}
         <div style={{
-          display: 'grid',
-          gridTemplateColumns: '1fr 1fr',
-          gap: '10px',
+          padding: isMobile ? '20px' : '28px 32px',
+          background: '#fafafa',
         }}>
-          {[
-            { icon: '📅', label: 'Election Date', value: 'November 2025' },
-            { icon: '📍', label: 'Location', value: 'Candaba, Pampanga' },
-            { icon: '👑', label: 'Chairperson', value: '1 seat open' },
-            { icon: '👤', label: 'Councilors', value: '7 seats open' },
-          ].map((card, i) => (
-            <div key={i} style={{
-              background: '#fff',
-              border: '0.5px solid #eee',
-              borderTop: '2px solid #cc0000',
-              borderRadius: '4px',
-              padding: '12px 10px',
-              textAlign: 'center',
-            }}>
-              <div style={{ fontSize: '22px', marginBottom: '5px' }}>{card.icon}</div>
-              <div style={{
-                fontSize: '10px',
-                fontWeight: 600,
-                color: '#333',
-                textTransform: 'uppercase',
-                letterSpacing: '0.04em',
+          <div style={{
+            fontSize: isMobile ? '14px' : '16px',
+            fontWeight: 700,
+            color: '#8b0000',
+            fontFamily: 'Georgia, serif',
+            marginBottom: '12px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: '8px',
+          }}>
+            <span style={{
+              display: 'block',
+              width: '3px',
+              height: '16px',
+              background: '#cc0000',
+              borderRadius: '2px',
+            }} />
+            Election Details
+          </div>
+
+          <div style={{
+            display: 'grid',
+            gridTemplateColumns: '1fr 1fr',
+            gap: '10px',
+          }}>
+            {[
+              { icon: '📅', label: 'Election Date', value: 'November 2025' },
+              { icon: '📍', label: 'Location', value: 'Candaba, Pampanga' },
+              { icon: '👑', label: 'Chairperson', value: '1 seat open' },
+              { icon: '👤', label: 'Councilors', value: '7 seats open' },
+            ].map((card, i) => (
+              <div key={i} style={{
+                background: '#fff',
+                border: '0.5px solid #eee',
+                borderTop: '2px solid #cc0000',
+                borderRadius: '4px',
+                padding: '12px 10px',
+                textAlign: 'center',
               }}>
-                {card.label}
+                <div style={{ fontSize: '22px', marginBottom: '5px' }}>{card.icon}</div>
+                <div style={{
+                  fontSize: '10px',
+                  fontWeight: 600,
+                  color: '#333',
+                  textTransform: 'uppercase',
+                  letterSpacing: '0.04em',
+                }}>
+                  {card.label}
+                </div>
+                <div style={{
+                  fontSize: '12px',
+                  color: '#666',
+                  marginTop: '3px',
+                }}>
+                  {card.value}
+                </div>
               </div>
-              <div style={{
-                fontSize: '12px',
-                color: '#666',
-                marginTop: '3px',
-              }}>
-                {card.value}
-              </div>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </div>
 
@@ -459,12 +470,12 @@ function Home() {
       {/* Call to action to view candidates              */}
       {/* ================================================ */}
       <div style={{
-        padding: '24px 20px',
+        padding: isMobile ? '24px 20px' : '40px 32px',
         background: 'linear-gradient(135deg, #1a0000 0%, #6b0000 100%)',
         textAlign: 'center',
       }}>
         <div style={{
-          fontSize: '18px',
+          fontSize: isMobile ? '18px' : '24px',
           fontWeight: 700,
           color: '#fff',
           fontFamily: 'Georgia, serif',
@@ -473,7 +484,7 @@ function Home() {
           Ready to know your candidates?
         </div>
         <div style={{
-          fontSize: '12px',
+          fontSize: isMobile ? '12px' : '14px',
           color: '#ffcccc',
           marginBottom: '16px',
         }}>
@@ -485,9 +496,9 @@ function Home() {
             background: '#cc0000',
             color: '#fff',
             border: 'none',
-            padding: '12px 28px',
+            padding: isMobile ? '12px 28px' : '14px 36px',
             borderRadius: '4px',
-            fontSize: '13px',
+            fontSize: isMobile ? '13px' : '15px',
             fontWeight: 600,
             cursor: 'pointer',
           }}
