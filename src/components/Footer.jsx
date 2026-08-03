@@ -6,7 +6,7 @@ function Footer() {
       color: '#aaa', 
       fontSize: '11px' 
       }}>
-      SK Halalan 2025 · Municipality of Candaba · Pampanga Province
+      SK Halalan 2026 · Municipality of Candaba · Pampanga Province
     </div>
   )
 }
