@@ -154,7 +154,7 @@ function Home() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'rgba(80,0,0,0.65)',
+          background: 'rgba(35,0,0,0.65)',
         }} />
 
         {/* Hero content — centered, max width on desktop */}
@@ -174,7 +174,7 @@ function Home() {
             textTransform: 'uppercase',
             marginBottom: '8px',
           }}>
-            Official SK Halalan 2025
+            Official SK Halalan 2026
           </div>
 
           {/* Main title — bigger on desktop */}
@@ -195,7 +195,7 @@ function Home() {
             color: '#ffcccc',
             marginBottom: '12px',
           }}>
-            Candaba, Pampanga · November 2025
+            Candaba, Pampanga · November 2026
           </p>
 
           {/* Typewriter box — wider on desktop */}
@@ -321,7 +321,7 @@ function Home() {
         {[
           { number: '8', label: 'Open Positions' },
           { number: 'TBA', label: 'Candidates' },
-          { number: 'Nov 2025', label: 'Election Date' },
+          { number: 'Nov 2026', label: 'Election Date' },
         ].map((stat, i) => (
           <div key={i} style={{
             padding: isMobile ? '14px' : '18px',
@@ -385,14 +385,14 @@ function Home() {
               background: '#cc0000',
               borderRadius: '2px',
             }} />
-            About SK Halalan 2025
+            About SK Halalan 2026
           </div>
           <p style={{
             fontSize: isMobile ? '13px' : '14px',
             color: '#555',
             lineHeight: 1.8,
           }}>
-            The Sangguniang Kabataan Halalan 2025 is the official youth elections
+            The Sangguniang Kabataan Halalan 2026 is the official youth elections
             for the Municipality of Candaba, Pampanga. This platform serves as the
             official information resource for voters to learn about candidates.
           </p>
@@ -429,7 +429,7 @@ function Home() {
             gap: '10px',
           }}>
             {[
-              { icon: '📅', label: 'Election Date', value: 'November 2025' },
+              { icon: '📅', label: 'Election Date', value: 'November 2026' },
               { icon: '📍', label: 'Location', value: 'Candaba, Pampanga' },
               { icon: '👑', label: 'Chairperson', value: '1 seat open' },
               { icon: '👤', label: 'Councilors', value: '7 seats open' },
