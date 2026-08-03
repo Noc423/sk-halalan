@@ -121,10 +121,10 @@ function Navbar() {
             />
           </div>
 
-          {/* SK Halalan 2025 logo */}
+          {/* SK Halalan 2026 logo */}
           <img 
             src="/sk-logo.png" 
-            alt="SK Halalan 2025" 
+            alt="SK Halalan 2026" 
             style={{ 
               height: '38px', 
               width: 'auto', 
@@ -223,7 +223,7 @@ function Navbar() {
             color: '#fff', 
             fontFamily: 'Georgia, serif' 
           }}>
-            SK Halalan 2025
+            SK Halalan 2026
           </div>
           <div style={{ 
             fontSize: '11px', 
