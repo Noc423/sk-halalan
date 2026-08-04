@@ -72,7 +72,7 @@ function Navbar() {
 
         {/* Official government label */}
         <span style={{ 
-          fontSize: '11px', 
+          fontSize: '9px', 
           color: '#ffcccc',
         }}>
           Republic of the Philippines · Municipality of Candaba · Pampanga
