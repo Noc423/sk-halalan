@@ -387,16 +387,33 @@ function Home() {
             }} />
             About SK Halalan 2026
           </div>
-          <p style={{
-            fontSize: isMobile ? '13px' : '14px',
-            color: '#555',
-            lineHeight: 1.8,
-          }}>
-            The Sangguniang Kabataan Halalan 2026 is the official youth elections
-            for the Municipality of Candaba, Pampanga. This platform serves as the
-            official information resource for voters to learn about candidates.
-          </p>
-        </div>
+            <p
+              style={{
+                fontSize: isMobile ? '13px' : '14px',
+                color: '#555',
+                lineHeight: 1.8,
+                marginBottom: '16px',
+              }}
+            >
+              SK Halalan 2026 is an official online candidate information platform developed to support 
+              informed and responsible participation in the Sangguniang Kabataan elections in the Municipality 
+              of Candaba, Pampanga. The platform provides equal and accessible access to the profiles, backgrounds, 
+              qualifications, and platforms of all officially recognized SK candidates, enabling voters to make well-informed 
+              decisions based on each candidate's credentials, vision, and proposed programs.
+            </p>
+
+              <p
+                style={{
+                  fontSize: isMobile ? '13px' : '14px',
+                  color: '#555',
+                  lineHeight: 1.8,
+                }}
+              >
+                By promoting transparency, accessibility, and equal representation, SK Halalan 2026 aims to strengthen civic 
+                awareness and encourage active, informed, and meaningful participation among the youth in the democratic process.
+              </p>
+            
+          </div>
 
         {/* Info cards */}
         <div style={{
