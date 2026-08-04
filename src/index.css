@@ -109,3 +109,30 @@ code {
   padding: 4px 8px;
   background: var(--code-bg);
 }
+
+
+/* ================================================ */
+/* GLOBAL RESET                                     */
+/* Removes all default browser spacing             */
+/* so our layout takes the full screen width       */
+/* ================================================ */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  /* Removes default browser margin */
+  margin: 0;
+  padding: 0;
+  font-family: sans-serif;
+  /* Prevents horizontal scrollbar */
+  overflow-x: hidden;
+}
+
+/* Makes the root div take full width */
+#root {
+  width: 100%;
+  min-height: 100vh;
+}

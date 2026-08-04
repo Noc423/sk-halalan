@@ -75,21 +75,9 @@ function Navbar() {
           fontSize: '11px', 
           color: '#ffcccc',
         }}>
-          Republic of the Philippines · Candaba · Pampanga
+          Republic of the Philippines · Municipality of Candaba · Pampanga
         </span>
-
-        {/* Quick links on the right side */}
-        <div style={{ 
-          display: 'flex', 
-          alignItems: 'center',
-          gap: '14px',
-        }}>
-
-
-
-
-
-        </div>
+        
       </div>
 
       {/* ================================================ */}
@@ -112,8 +100,8 @@ function Navbar() {
       }}>
 
         {/* ============================================= */}
-        {/* LEFT SIDE: Logos                             */}
-        {/* Wrapped in Link so clicking goes to Home     */}
+        {/* LEFT SIDE: Logos + Municipality Name         */}
+        {/* Clicking logos goes back to Home page        */}
         {/* ============================================= */}
         <div style={{
           display: 'flex',
@@ -131,8 +119,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-
-            {/* Candaba municipal seal — circular shape with red border */}
+            {/* Candaba municipal seal — circular with red border */}
             <div style={{ 
               width: '42px', 
               height: '42px', 
@@ -164,28 +151,24 @@ function Navbar() {
             />
           </Link>
 
-          {/* Municipality name — only shows on desktop */}
-          {/* Hidden on mobile to save space            */}
-          {!isMobile && (
-            <>
-              {/* Vertical divider between logo and text */}
-              <div style={{ 
-                width: '1px', 
-                height: '32px', 
-                background: '#eee',
-                margin: '0 4px',
-              }} />
+          {/* Vertical divider between logos and text */}
+          <div style={{ 
+            width: '1px', 
+            height: '32px', 
+            background: '#eee',
+            margin: '0 4px',
+          }} />
 
-              <div style={{ 
-                fontSize: '11px', 
-                color: '#666', 
-                lineHeight: 1.5,
-              }}>
-                Municipality of Candaba<br />
-                Pampanga Province
-              </div>
-            </>
-          )}
+          {/* Municipality name — shows on both mobile and desktop */}
+          <div style={{ 
+            fontSize: '11px', 
+            color: '#666', 
+            lineHeight: 1.5,
+          }}>
+            Municipality of Candaba<br />
+            Pampanga Province
+          </div>
+
         </div>
 
         {/* ============================================= */}
@@ -280,13 +263,12 @@ function Navbar() {
                 zIndex: 0,
               }}/>
 
-              {/* EN option */}
+              {/* EN option — white text when active */}
               <span style={{ 
                 fontSize: '11px', 
                 fontWeight: 500, 
                 padding: '4px 12px', 
                 borderRadius: '99px', 
-                // White text when active, gray when inactive
                 color: lang === 'en' ? '#fff' : '#888', 
                 zIndex: 1, 
                 position: 'relative',
@@ -294,7 +276,7 @@ function Navbar() {
                 EN
               </span>
 
-              {/* FIL option */}
+              {/* FIL option — white text when active */}
               <span style={{ 
                 fontSize: '11px', 
                 fontWeight: 500, 
@@ -368,13 +350,13 @@ function Navbar() {
               color: '#ffcccc', 
               marginTop: '2px',
             }}>
-              Municipality of Candaba
+              Municipality of Candaba · Pampanga Province
             </div>
           </div>
 
           {/* Drawer navigation links                     */}
           {/* onClick on each link closes the drawer      */}
-          {/* so the page doesn't stay covered           */}
+          {/* so the page doesn't stay covered            */}
           <div style={{ padding: '8px 0' }}>
             <Link 
               to="/" 
