@@ -75,7 +75,7 @@ function Navbar() {
           fontSize: '11px', 
           color: '#ffcccc',
         }}>
-          Republic of the Philippines · Municipality of Candaba · Pampanga
+          Republic of the Philippines · Candaba · Pampanga
         </span>
 
         {/* Quick links on the right side */}
@@ -84,42 +84,11 @@ function Navbar() {
           alignItems: 'center',
           gap: '14px',
         }}>
-          <a href="#" style={{ 
-            fontSize: '11px', 
-            color: '#ffcccc', 
-            textDecoration: 'none',
-          }}>
-            COMELEC
-          </a>
 
-          {/* Vertical divider line between links */}
-          <div style={{ 
-            width: '1px', 
-            height: '12px', 
-            background: 'rgba(255,255,255,0.25)',
-          }}/>
 
-          <a href="#" style={{ 
-            fontSize: '11px', 
-            color: '#ffcccc', 
-            textDecoration: 'none',
-          }}>
-            Official Gazette
-          </a>
 
-          <div style={{ 
-            width: '1px', 
-            height: '12px', 
-            background: 'rgba(255,255,255,0.25)',
-          }}/>
 
-          <a href="#" style={{ 
-            fontSize: '11px', 
-            color: '#ffcccc', 
-            textDecoration: 'none',
-          }}>
-            Contact Us
-          </a>
+
         </div>
       </div>
 
