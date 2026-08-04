@@ -195,7 +195,7 @@ function Home() {
             color: '#ffcccc',
             marginBottom: '12px',
           }}>
-            Candaba, Pampanga · November 2026
+            Official Candidate Information Portal
           </p>
 
           {/* Typewriter box — wider on desktop */}
@@ -433,8 +433,8 @@ function Home() {
             {[
               { icon: '📅', label: 'Election Date', value: 'November 2026' },
               { icon: '📍', label: 'Location', value: 'Candaba, Pampanga' },
-              { icon: '👑', label: 'Chairperson', value: '1 seat open' },
-              { icon: '👤', label: 'Councilors', value: '7 seats open' },
+              { icon: '👑', label: 'SK Chairperson', value: '1 seat open' },
+              { icon: '👤', label: 'SK Councilors', value: '7 seats open' },
             ].map((card, i) => (
               <div key={i} style={{
                 background: '#fff',
@@ -490,7 +490,7 @@ function Home() {
           color: '#ffcccc',
           marginBottom: '16px',
         }}>
-          Candidates will be officially announced soon.
+         Explore the official SK candidates.
         </div>
         <button
           onClick={() => navigate('/candidates')}
