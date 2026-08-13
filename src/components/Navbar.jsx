@@ -12,24 +12,27 @@ function Navbar() {
   // Used to highlight the active nav link
   const location = useLocation()
 
-  // true = drawer is open, false = drawer is closed
-  // Only used on mobile
+  // true = mobile drawer is open, false = closed
   const [menuOpen, setMenuOpen] = useState(false)
+
+  // true = about dropdown is visible, false = hidden
+  // Only used on desktop
+  const [aboutOpen, setAboutOpen] = useState(false)
 
   // 'en' or 'fil' — controls the language toggle
   const [lang, setLang] = useState('en')
 
   // isMobile = screen width less than 768px (phone)
-  // isDesktop = screen width 1024px and above (laptop/desktop)
+  // Anything above = desktop layout
   const { isMobile } = useWindowSize()
 
   // ================================================
   // STYLES
   // ================================================
 
-  // Style for desktop nav links (Home, About, Candidates)
-  // Active link gets dark red color + red underline
-  // Inactive link stays gray
+  // Desktop nav link style
+  // Active page = dark red color + red underline
+  // Inactive page = gray, no underline
   const desktopLinkStyle = (path) => ({
     fontSize: '13px',
     textDecoration: 'none',
@@ -39,8 +42,8 @@ function Navbar() {
     borderBottom: location.pathname === path ? '2px solid #cc0000' : 'none',
   })
 
-  // Style for mobile drawer links
-  // Bigger font and padding for easier tapping on phone
+  // Mobile drawer link style
+  // Bigger font and padding = easier to tap on phone
   const drawerLinkStyle = (path) => ({
     fontSize: '14px',
     textDecoration: 'none',
@@ -53,14 +56,26 @@ function Navbar() {
     borderBottom: '0.5px solid #eee',
   })
 
+  // Style for each item inside the About dropdown
+  const dropdownItemStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    padding: '12px 16px',
+    fontSize: '13px',
+    color: '#333',
+    textDecoration: 'none',
+    borderBottom: '0.5px solid #f5f5f5',
+    background: '#fff',
+  }
+
   return (
     <>
 
       {/* ================================================ */}
       {/* TOP STRIP                                        */}
-      {/* Thin dark red bar at the very top of the page   */}
-      {/* Shows the official government name on the left  */}
-      {/* Shows quick links on the right                  */}
+      {/* Thin dark red bar at the very top               */}
+      {/* Shows official government name + quick links    */}
       {/* ================================================ */}
       <div style={{ 
         background: '#8b0000', 
@@ -70,21 +85,65 @@ function Navbar() {
         justifyContent: 'space-between',
       }}>
 
-        {/* Official government label */}
+        {/* Left: official government label */}
         <span style={{ 
-          fontSize: '9px', 
+          fontSize: '11px', 
           color: '#ffcccc',
         }}>
           Republic of the Philippines · Municipality of Candaba · Pampanga
         </span>
-        
+
+        {/* Right: quick links with dividers between them */}
+        <div style={{ 
+          display: 'flex', 
+          alignItems: 'center',
+          gap: '14px',
+        }}>
+          <a href="#" style={{ 
+            fontSize: '11px', 
+            color: '#ffcccc', 
+            textDecoration: 'none',
+          }}>
+            COMELEC
+          </a>
+
+          {/* Divider line between links */}
+          <div style={{ 
+            width: '1px', 
+            height: '12px', 
+            background: 'rgba(255,255,255,0.25)',
+          }}/>
+
+          <a href="#" style={{ 
+            fontSize: '11px', 
+            color: '#ffcccc', 
+            textDecoration: 'none',
+          }}>
+            Official Gazette
+          </a>
+
+          {/* Divider line between links */}
+          <div style={{ 
+            width: '1px', 
+            height: '12px', 
+            background: 'rgba(255,255,255,0.25)',
+          }}/>
+
+          <a href="#" style={{ 
+            fontSize: '11px', 
+            color: '#ffcccc', 
+            textDecoration: 'none',
+          }}>
+            Contact Us
+          </a>
+        </div>
       </div>
 
       {/* ================================================ */}
       {/* MAIN NAVBAR                                      */}
       {/* White bar with logos and navigation             */}
-      {/* position sticky = stays visible when scrolling  */}
-      {/* zIndex 100 = stays on top of all other content  */}
+      {/* position sticky = stays on screen when scrolling*/}
+      {/* zIndex 100 = always on top of page content      */}
       {/* ================================================ */}
       <div style={{ 
         background: '#fff', 
@@ -109,7 +168,8 @@ function Navbar() {
           gap: '10px',
         }}>
 
-          {/* Logos wrapped in Link — clicking takes user to Home page */}
+          {/* Both logos inside a Link                    */}
+          {/* Clicking either logo navigates to Home      */}
           <Link 
             to="/" 
             style={{ 
@@ -119,7 +179,7 @@ function Navbar() {
               textDecoration: 'none',
             }}
           >
-            {/* Candaba municipal seal — circular with red border */}
+            {/* Candaba municipal seal — circular red border */}
             <div style={{ 
               width: '42px', 
               height: '42px', 
@@ -151,7 +211,7 @@ function Navbar() {
             />
           </Link>
 
-          {/* Vertical divider between logos and text */}
+          {/* Thin vertical divider line */}
           <div style={{ 
             width: '1px', 
             height: '32px', 
@@ -159,7 +219,7 @@ function Navbar() {
             margin: '0 4px',
           }} />
 
-          {/* Municipality name — shows on both mobile and desktop */}
+          {/* Municipality name — visible on all sizes */}
           <div style={{ 
             fontSize: '11px', 
             color: '#666', 
@@ -173,13 +233,13 @@ function Navbar() {
 
         {/* ============================================= */}
         {/* RIGHT SIDE                                   */}
-        {/* Mobile: shows hamburger ☰ button             */}
-        {/* Desktop: shows nav links + EN/FIL toggle     */}
+        {/* Mobile = hamburger ☰ button                  */}
+        {/* Desktop = nav links + dropdown + toggle      */}
         {/* ============================================= */}
         {isMobile ? (
 
-          // MOBILE — hamburger button
-          // Clicking it opens the drawer from the right
+          // MOBILE: hamburger button
+          // Clicking opens the side drawer
           <button
             onClick={() => setMenuOpen(!menuOpen)}
             aria-label="Open navigation menu"
@@ -193,7 +253,7 @@ function Navbar() {
               padding: '4px',
             }}
           >
-            {/* 3 horizontal lines = hamburger icon ☰ */}
+            {/* 3 lines = hamburger ☰ icon */}
             <span style={{ 
               display: 'block', 
               width: '22px', 
@@ -219,23 +279,131 @@ function Navbar() {
 
         ) : (
 
-          // DESKTOP — navigation links + language toggle
+          // DESKTOP: nav links + about dropdown + EN/FIL toggle
           <div style={{ 
             display: 'flex', 
             alignItems: 'center', 
             gap: '28px',
           }}>
 
-            {/* Navigation links */}
+            {/* Home nav link */}
             <Link to="/" style={desktopLinkStyle('/')}>Home</Link>
-            <Link to="/about" style={desktopLinkStyle('/about')}>About</Link>
+
+            {/* ========================================= */}
+            {/* ABOUT DROPDOWN                           */}
+            {/* onMouseEnter = opens dropdown            */}
+            {/* onMouseLeave = closes dropdown           */}
+            {/* Invisible bridge fills the gap between   */}
+            {/* the trigger and menu so it doesn't close */}
+            {/* when mouse moves between them            */}
+            {/* ========================================= */}
+            <div 
+              style={{ position: 'relative' }}
+              onMouseEnter={() => setAboutOpen(true)}
+              onMouseLeave={() => setAboutOpen(false)}
+            >
+
+              {/* About trigger text + arrow */}
+              <div style={{
+                ...desktopLinkStyle('/about'),
+                display: 'flex',
+                alignItems: 'center',
+                gap: '4px',
+                cursor: 'pointer',
+              }}>
+                About
+                {/* Arrow icon — rotates when dropdown opens */}
+                <span style={{
+                  fontSize: '10px',
+                  color: location.pathname.startsWith('/about') ? '#8b0000' : '#888',
+                  display: 'inline-block',
+                  transition: 'transform 0.2s',
+                  transform: aboutOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                }}>
+                  ▾
+                </span>
+              </div>
+
+              {/* Invisible bridge div                     */}
+              {/* Fills the 8px gap between trigger        */}
+              {/* and dropdown menu so mouse hover         */}
+              {/* doesn't break when moving between them  */}
+              {aboutOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: '100%',
+                  left: 0,
+                  width: '100%',
+                  height: '8px',
+                  background: 'transparent',
+                }}/>
+              )}
+
+              {/* Dropdown menu                            */}
+              {/* Only shows when aboutOpen = true         */}
+              {aboutOpen && (
+                <div style={{
+                  position: 'absolute',
+                  top: 'calc(100% + 8px)',
+                  left: '50%',
+                  transform: 'translateX(-50%)',
+                  background: '#fff',
+                  border: '0.5px solid #eee',
+                  borderRadius: '8px',
+                  boxShadow: '0 4px 20px rgba(0,0,0,0.1)',
+                  minWidth: '210px',
+                  overflow: 'hidden',
+                  zIndex: 999,
+                }}>
+
+                  {/* Option 1: About SK Halalan 2025 */}
+                  <Link
+                    to="/about"
+                    style={dropdownItemStyle}
+                    onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
+                    onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                  >
+                    <span style={{ fontSize: '16px' }}>ℹ️</span>
+                    About SK Halalan 2025
+                  </Link>
+
+                  {/* Option 2: Municipal Leadership */}
+                  <Link
+                    to="/leadership"
+                    style={dropdownItemStyle}
+                    onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
+                    onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                  >
+                    <span style={{ fontSize: '16px' }}>🏛️</span>
+                    Municipal Leadership
+                  </Link>
+
+                  {/* Option 3: Developer                  */}
+                  {/* Last item so no bottom border        */}
+                  <Link
+                    to="/developer"
+                    style={{ 
+                      ...dropdownItemStyle, 
+                      borderBottom: 'none',
+                    }}
+                    onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
+                    onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                  >
+                    <span style={{ fontSize: '16px' }}>💻</span>
+                    Developer
+                  </Link>
+
+                </div>
+              )}
+            </div>
+
+            {/* Candidates nav link */}
             <Link to="/candidates" style={desktopLinkStyle('/candidates')}>Candidates</Link>
 
             {/* ========================================= */}
             {/* EN / FIL LANGUAGE TOGGLE                 */}
-            {/* Clicking switches between English        */}
-            {/* and Filipino language                    */}
-            {/* The red pill slides left or right        */}
+            {/* Clicking switches between EN and FIL     */}
+            {/* Red pill slides left = EN, right = FIL   */}
             {/* ========================================= */}
             <div 
               onClick={() => setLang(lang === 'en' ? 'fil' : 'en')}
@@ -250,7 +418,8 @@ function Navbar() {
                 border: '0.5px solid #ddd',
               }}
             >
-              {/* Red sliding pill — moves left for EN, right for FIL */}
+              {/* Red sliding pill                        */}
+              {/* Moves left when EN, right when FIL      */}
               <div style={{ 
                 position: 'absolute', 
                 top: '3px', 
@@ -263,7 +432,7 @@ function Navbar() {
                 zIndex: 0,
               }}/>
 
-              {/* EN option — white text when active */}
+              {/* EN label */}
               <span style={{ 
                 fontSize: '11px', 
                 fontWeight: 500, 
@@ -276,7 +445,7 @@ function Navbar() {
                 EN
               </span>
 
-              {/* FIL option — white text when active */}
+              {/* FIL label */}
               <span style={{ 
                 fontSize: '11px', 
                 fontWeight: 500, 
@@ -296,9 +465,9 @@ function Navbar() {
 
       {/* ================================================ */}
       {/* OVERLAY                                          */}
-      {/* Semi-transparent dark background                */}
-      {/* Only appears on mobile when drawer is open      */}
-      {/* Clicking anywhere on it closes the drawer       */}
+      {/* Dark background behind the mobile drawer        */}
+      {/* Only shows on mobile when drawer is open        */}
+      {/* Clicking it closes the drawer                   */}
       {/* ================================================ */}
       {isMobile && menuOpen && (
         <div
@@ -314,9 +483,9 @@ function Navbar() {
 
       {/* ================================================ */}
       {/* MOBILE DRAWER                                    */}
-      {/* Slides in from the right side on mobile only    */}
-      {/* right: 0 = fully visible on screen              */}
-      {/* right: -220px = hidden off screen to the right  */}
+      {/* Slides in from the right on mobile only         */}
+      {/* right: 0 = on screen and visible               */}
+      {/* right: -220px = hidden off the right edge      */}
       {/* transition = smooth sliding animation           */}
       {/* ================================================ */}
       {isMobile && (
@@ -332,7 +501,7 @@ function Navbar() {
           transition: 'right 0.25s ease',
         }}>
 
-          {/* Drawer header — dark red with website title */}
+          {/* Drawer header — dark red background */}
           <div style={{ 
             background: '#8b0000', 
             padding: '20px 16px',
@@ -355,8 +524,7 @@ function Navbar() {
           </div>
 
           {/* Drawer navigation links                     */}
-          {/* onClick on each link closes the drawer      */}
-          {/* so the page doesn't stay covered            */}
+          {/* Each link closes the drawer when clicked   */}
           <div style={{ padding: '8px 0' }}>
             <Link 
               to="/" 
