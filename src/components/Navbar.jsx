@@ -15,8 +15,8 @@ function Navbar() {
   // true = mobile drawer is open, false = closed
   const [menuOpen, setMenuOpen] = useState(false)
 
-  // true = about dropdown is visible, false = hidden
-  // Only used on desktop
+  // true = about dropdown/accordion is open, false = closed
+  // Used on both desktop (dropdown) and mobile (accordion)
   const [aboutOpen, setAboutOpen] = useState(false)
 
   // 'en' or 'fil' — controls the language toggle
@@ -56,7 +56,7 @@ function Navbar() {
     borderBottom: '0.5px solid #eee',
   })
 
-  // Style for each item inside the About dropdown
+  // Style for each item inside the desktop About dropdown
   const dropdownItemStyle = {
     display: 'flex',
     alignItems: 'center',
@@ -67,6 +67,19 @@ function Navbar() {
     textDecoration: 'none',
     borderBottom: '0.5px solid #f5f5f5',
     background: '#fff',
+  }
+
+  // Style for sub-links inside the mobile About accordion
+  const accordionSubLinkStyle = {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '10px',
+    // Extra left padding to show it's a sub-item
+    padding: '12px 16px 12px 32px',
+    fontSize: '13px',
+    color: '#555',
+    textDecoration: 'none',
+    borderBottom: '0.5px solid #eee',
   }
 
   return (
@@ -107,7 +120,7 @@ function Navbar() {
             COMELEC
           </a>
 
-          {/* Divider line between links */}
+          {/* Divider line */}
           <div style={{ 
             width: '1px', 
             height: '12px', 
@@ -122,7 +135,7 @@ function Navbar() {
             Official Gazette
           </a>
 
-          {/* Divider line between links */}
+          {/* Divider line */}
           <div style={{ 
             width: '1px', 
             height: '12px', 
@@ -290,12 +303,10 @@ function Navbar() {
             <Link to="/" style={desktopLinkStyle('/')}>Home</Link>
 
             {/* ========================================= */}
-            {/* ABOUT DROPDOWN                           */}
-            {/* onMouseEnter = opens dropdown            */}
-            {/* onMouseLeave = closes dropdown           */}
-            {/* Invisible bridge fills the gap between   */}
-            {/* the trigger and menu so it doesn't close */}
-            {/* when mouse moves between them            */}
+            {/* ABOUT DROPDOWN — desktop only            */}
+            {/* Hovering opens a dropdown menu below     */}
+            {/* Invisible bridge prevents it from        */}
+            {/* closing when mouse moves into the menu   */}
             {/* ========================================= */}
             <div 
               style={{ position: 'relative' }}
@@ -303,7 +314,7 @@ function Navbar() {
               onMouseLeave={() => setAboutOpen(false)}
             >
 
-              {/* About trigger text + arrow */}
+              {/* About trigger + rotating arrow */}
               <div style={{
                 ...desktopLinkStyle('/about'),
                 display: 'flex',
@@ -312,7 +323,7 @@ function Navbar() {
                 cursor: 'pointer',
               }}>
                 About
-                {/* Arrow icon — rotates when dropdown opens */}
+                {/* Arrow rotates 180deg when dropdown is open */}
                 <span style={{
                   fontSize: '10px',
                   color: location.pathname.startsWith('/about') ? '#8b0000' : '#888',
@@ -324,10 +335,11 @@ function Navbar() {
                 </span>
               </div>
 
-              {/* Invisible bridge div                     */}
-              {/* Fills the 8px gap between trigger        */}
-              {/* and dropdown menu so mouse hover         */}
-              {/* doesn't break when moving between them  */}
+              {/* Invisible bridge                         */}
+              {/* 8px tall transparent div that fills gap */}
+              {/* between trigger and dropdown menu       */}
+              {/* Without this the dropdown closes when   */}
+              {/* mouse moves from trigger to menu        */}
               {aboutOpen && (
                 <div style={{
                   position: 'absolute',
@@ -339,8 +351,7 @@ function Navbar() {
                 }}/>
               )}
 
-              {/* Dropdown menu                            */}
-              {/* Only shows when aboutOpen = true         */}
+              {/* Dropdown menu — shows when aboutOpen = true */}
               {aboutOpen && (
                 <div style={{
                   position: 'absolute',
@@ -378,8 +389,7 @@ function Navbar() {
                     Municipal Leadership
                   </Link>
 
-                  {/* Option 3: Developer                  */}
-                  {/* Last item so no bottom border        */}
+                  {/* Option 3: Developer — last item, no border */}
                   <Link
                     to="/developer"
                     style={{ 
@@ -418,8 +428,7 @@ function Navbar() {
                 border: '0.5px solid #ddd',
               }}
             >
-              {/* Red sliding pill                        */}
-              {/* Moves left when EN, right when FIL      */}
+              {/* Red sliding pill */}
               <div style={{ 
                 position: 'absolute', 
                 top: '3px', 
@@ -499,6 +508,7 @@ function Navbar() {
           borderLeft: '0.5px solid #eee', 
           zIndex: 300,
           transition: 'right 0.25s ease',
+          overflowY: 'auto',
         }}>
 
           {/* Drawer header — dark red background */}
@@ -523,9 +533,12 @@ function Navbar() {
             </div>
           </div>
 
-          {/* Drawer navigation links                     */}
-          {/* Each link closes the drawer when clicked   */}
+          {/* ========================================= */}
+          {/* DRAWER LINKS                             */}
+          {/* ========================================= */}
           <div style={{ padding: '8px 0' }}>
+
+            {/* Home link */}
             <Link 
               to="/" 
               onClick={() => setMenuOpen(false)} 
@@ -533,13 +546,86 @@ function Navbar() {
             >
               🏠 Home
             </Link>
-            <Link 
-              to="/about" 
-              onClick={() => setMenuOpen(false)} 
-              style={drawerLinkStyle('/about')}
+
+            {/* ======================================= */}
+            {/* ABOUT ACCORDION — mobile only          */}
+            {/* Tapping About expands sub-links below  */}
+            {/* ======================================= */}
+
+            {/* About accordion header */}
+            {/* Tapping toggles aboutOpen true/false   */}
+            <div
+              onClick={() => setAboutOpen(!aboutOpen)}
+              style={{
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'space-between',
+                padding: '14px 16px',
+                fontSize: '14px',
+                color: location.pathname.startsWith('/about') ? '#8b0000' : '#444',
+                fontWeight: location.pathname.startsWith('/about') ? 600 : 400,
+                borderBottom: '0.5px solid #eee',
+                cursor: 'pointer',
+              }}
             >
-              ℹ️ About
-            </Link>
+              <span style={{ 
+                display: 'flex', 
+                alignItems: 'center', 
+                gap: '10px',
+              }}>
+                ℹ️ About
+              </span>
+              {/* Arrow rotates when accordion opens */}
+              <span style={{
+                fontSize: '11px',
+                color: '#888',
+                transition: 'transform 0.2s',
+                transform: aboutOpen ? 'rotate(180deg)' : 'rotate(0deg)',
+                display: 'inline-block',
+              }}>
+                ▾
+              </span>
+            </div>
+
+            {/* About sub-links — only shows when aboutOpen = true */}
+            {/* Light gray background to show they are sub-items  */}
+            {aboutOpen && (
+              <div style={{ background: '#fafafa' }}>
+
+                {/* Sub-link 1: About SK Halalan 2025 */}
+                <Link
+                  to="/about"
+                  onClick={() => setMenuOpen(false)}
+                  style={accordionSubLinkStyle}
+                >
+                  <span style={{ color: '#cc0000' }}>ℹ️</span>
+                  About SK Halalan 2025
+                </Link>
+
+                {/* Sub-link 2: Municipal Leadership */}
+                <Link
+                  to="/leadership"
+                  onClick={() => setMenuOpen(false)}
+                  style={accordionSubLinkStyle}
+                >
+                  <span style={{ color: '#cc0000' }}>🏛️</span>
+                  Municipal Leadership
+                </Link>
+
+                {/* Sub-link 3: Developer */}
+                <Link
+                  to="/developer"
+                  onClick={() => setMenuOpen(false)}
+                  style={accordionSubLinkStyle}
+                >
+                  <span style={{ color: '#cc0000' }}>💻</span>
+                  Developer
+                </Link>
+
+              </div>
+            )}
+
+            {/* Candidates link */}
             <Link 
               to="/candidates" 
               onClick={() => setMenuOpen(false)} 
@@ -547,6 +633,7 @@ function Navbar() {
             >
               👥 Candidates
             </Link>
+
           </div>
 
         </div>
