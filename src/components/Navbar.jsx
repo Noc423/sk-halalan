@@ -54,6 +54,7 @@ function Navbar() {
     gap: '10px',
     padding: '14px 16px',
     borderBottom: '0.5px solid #eee',
+    transition: 'background 0.15s, color 0.15s',
   })
 
   // Style for each item inside the desktop About dropdown
@@ -80,10 +81,60 @@ function Navbar() {
     color: '#555',
     textDecoration: 'none',
     borderBottom: '0.5px solid #eee',
+    transition: 'background 0.15s, color 0.15s',
   }
 
   return (
     <>
+
+      {/* ================================================ */}
+      {/* HOVER STYLES                                     */}
+      {/* We use a style tag because inline styles in     */}
+      {/* React don't support :hover pseudo-class         */}
+      {/* ================================================ */}
+      <style>{`
+
+        /* Top strip links — white on hover */
+        .top-strip-link:hover {
+          color: #fff !important;
+          text-decoration: underline !important;
+        }
+
+        /* Desktop nav links — dark red on hover */
+        .desktop-link:hover {
+          color: #8b0000 !important;
+        }
+
+        /* About dropdown trigger — dark red on hover */
+        .about-trigger:hover {
+          color: #8b0000 !important;
+        }
+
+        /* Dropdown menu items — light red bg on hover */
+        .dropdown-item:hover {
+          background: #fff0f0 !important;
+          color: #8b0000 !important;
+        }
+
+        /* Mobile drawer links — light red bg on hover */
+        .drawer-link:hover {
+          background: #fff0f0 !important;
+          color: #8b0000 !important;
+        }
+
+        /* About accordion header — light red on hover */
+        .accordion-header:hover {
+          background: #fff0f0 !important;
+          color: #8b0000 !important;
+        }
+
+        /* About accordion sub-links — lighter red on hover */
+        .accordion-sub-link:hover {
+          background: #ffe8e8 !important;
+          color: #8b0000 !important;
+        }
+
+      `}</style>
 
       {/* ================================================ */}
       {/* TOP STRIP                                        */}
@@ -112,41 +163,56 @@ function Navbar() {
           alignItems: 'center',
           gap: '14px',
         }}>
-          <a href="#" style={{ 
-            fontSize: '11px', 
-            color: '#ffcccc', 
-            textDecoration: 'none',
-          }}>
+
+          {/* Each link has className for hover effect */}
+          <a 
+            href="#" 
+            className="top-strip-link"
+            style={{ 
+              fontSize: '11px', 
+              color: '#ffcccc', 
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+          >
             COMELEC
           </a>
 
-          {/* Divider line */}
           <div style={{ 
             width: '1px', 
             height: '12px', 
             background: 'rgba(255,255,255,0.25)',
           }}/>
 
-          <a href="#" style={{ 
-            fontSize: '11px', 
-            color: '#ffcccc', 
-            textDecoration: 'none',
-          }}>
+          <a 
+            href="#" 
+            className="top-strip-link"
+            style={{ 
+              fontSize: '11px', 
+              color: '#ffcccc', 
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+          >
             Official Gazette
           </a>
 
-          {/* Divider line */}
           <div style={{ 
             width: '1px', 
             height: '12px', 
             background: 'rgba(255,255,255,0.25)',
           }}/>
 
-          <a href="#" style={{ 
-            fontSize: '11px', 
-            color: '#ffcccc', 
-            textDecoration: 'none',
-          }}>
+          <a 
+            href="#" 
+            className="top-strip-link"
+            style={{ 
+              fontSize: '11px', 
+              color: '#ffcccc', 
+              textDecoration: 'none',
+              transition: 'color 0.15s',
+            }}
+          >
             Contact Us
           </a>
         </div>
@@ -300,12 +366,21 @@ function Navbar() {
           }}>
 
             {/* Home nav link */}
-            <Link to="/" style={desktopLinkStyle('/')}>Home</Link>
+            <Link 
+              to="/" 
+              className="desktop-link"
+              style={{
+                ...desktopLinkStyle('/'),
+                transition: 'color 0.15s',
+              }}
+            >
+              Home
+            </Link>
 
             {/* ========================================= */}
             {/* ABOUT DROPDOWN — desktop only            */}
             {/* Hovering opens a dropdown menu below     */}
-            {/* Invisible bridge prevents it from        */}
+            {/* Invisible bridge prevents dropdown from  */}
             {/* closing when mouse moves into the menu   */}
             {/* ========================================= */}
             <div 
@@ -315,13 +390,17 @@ function Navbar() {
             >
 
               {/* About trigger + rotating arrow */}
-              <div style={{
-                ...desktopLinkStyle('/about'),
-                display: 'flex',
-                alignItems: 'center',
-                gap: '4px',
-                cursor: 'pointer',
-              }}>
+              <div 
+                className="about-trigger"
+                style={{
+                  ...desktopLinkStyle('/about'),
+                  display: 'flex',
+                  alignItems: 'center',
+                  gap: '4px',
+                  cursor: 'pointer',
+                  transition: 'color 0.15s',
+                }}
+              >
                 About
                 {/* Arrow rotates 180deg when dropdown is open */}
                 <span style={{
@@ -336,10 +415,8 @@ function Navbar() {
               </div>
 
               {/* Invisible bridge                         */}
-              {/* 8px tall transparent div that fills gap */}
-              {/* between trigger and dropdown menu       */}
-              {/* Without this the dropdown closes when   */}
-              {/* mouse moves from trigger to menu        */}
+              {/* Fills the 8px gap between trigger and   */}
+              {/* dropdown so hover doesn't break         */}
               {aboutOpen && (
                 <div style={{
                   position: 'absolute',
@@ -351,7 +428,7 @@ function Navbar() {
                 }}/>
               )}
 
-              {/* Dropdown menu — shows when aboutOpen = true */}
+              {/* Dropdown menu */}
               {aboutOpen && (
                 <div style={{
                   position: 'absolute',
@@ -370,34 +447,38 @@ function Navbar() {
                   {/* Option 1: About SK Halalan 2025 */}
                   <Link
                     to="/about"
-                    style={dropdownItemStyle}
-                    onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                    className="dropdown-item"
+                    style={{
+                      ...dropdownItemStyle,
+                      transition: 'background 0.15s, color 0.15s',
+                    }}
                   >
                     <span style={{ fontSize: '16px' }}>ℹ️</span>
-                    About SK Halalan 2025
+                    About SK Halalan 2026
                   </Link>
 
                   {/* Option 2: Municipal Leadership */}
                   <Link
                     to="/leadership"
-                    style={dropdownItemStyle}
-                    onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#fff'}
+                    className="dropdown-item"
+                    style={{
+                      ...dropdownItemStyle,
+                      transition: 'background 0.15s, color 0.15s',
+                    }}
                   >
                     <span style={{ fontSize: '16px' }}>🏛️</span>
                     Municipal Leadership
                   </Link>
 
-                  {/* Option 3: Developer — last item, no border */}
+                  {/* Option 3: Developer — last item no border */}
                   <Link
                     to="/developer"
+                    className="dropdown-item"
                     style={{ 
                       ...dropdownItemStyle, 
                       borderBottom: 'none',
+                      transition: 'background 0.15s, color 0.15s',
                     }}
-                    onMouseEnter={e => e.currentTarget.style.background = '#fff0f0'}
-                    onMouseLeave={e => e.currentTarget.style.background = '#fff'}
                   >
                     <span style={{ fontSize: '16px' }}>💻</span>
                     Developer
@@ -408,11 +489,19 @@ function Navbar() {
             </div>
 
             {/* Candidates nav link */}
-            <Link to="/candidates" style={desktopLinkStyle('/candidates')}>Candidates</Link>
+            <Link 
+              to="/candidates" 
+              className="desktop-link"
+              style={{
+                ...desktopLinkStyle('/candidates'),
+                transition: 'color 0.15s',
+              }}
+            >
+              Candidates
+            </Link>
 
             {/* ========================================= */}
             {/* EN / FIL LANGUAGE TOGGLE                 */}
-            {/* Clicking switches between EN and FIL     */}
             {/* Red pill slides left = EN, right = FIL   */}
             {/* ========================================= */}
             <div 
@@ -522,7 +611,7 @@ function Navbar() {
               color: '#fff', 
               fontFamily: 'Georgia, serif',
             }}>
-              SK Halalan 2025
+              SK Halalan 2026
             </div>
             <div style={{ 
               fontSize: '11px', 
@@ -542,6 +631,7 @@ function Navbar() {
             <Link 
               to="/" 
               onClick={() => setMenuOpen(false)} 
+              className="drawer-link"
               style={drawerLinkStyle('/')}
             >
               🏠 Home
@@ -552,10 +642,10 @@ function Navbar() {
             {/* Tapping About expands sub-links below  */}
             {/* ======================================= */}
 
-            {/* About accordion header */}
-            {/* Tapping toggles aboutOpen true/false   */}
+            {/* About accordion header — tapping toggles open/close */}
             <div
               onClick={() => setAboutOpen(!aboutOpen)}
+              className="accordion-header"
               style={{
                 display: 'flex',
                 alignItems: 'center',
@@ -566,6 +656,7 @@ function Navbar() {
                 fontWeight: location.pathname.startsWith('/about') ? 600 : 400,
                 borderBottom: '0.5px solid #eee',
                 cursor: 'pointer',
+                transition: 'background 0.15s, color 0.15s',
               }}
             >
               <span style={{ 
@@ -587,35 +678,37 @@ function Navbar() {
               </span>
             </div>
 
-            {/* About sub-links — only shows when aboutOpen = true */}
-            {/* Light gray background to show they are sub-items  */}
+            {/* About sub-links — shows when aboutOpen = true */}
             {aboutOpen && (
               <div style={{ background: '#fafafa' }}>
 
-                {/* Sub-link 1: About SK Halalan 2025 */}
+                {/* Sub-link 1 */}
                 <Link
                   to="/about"
                   onClick={() => setMenuOpen(false)}
+                  className="accordion-sub-link"
                   style={accordionSubLinkStyle}
                 >
                   <span style={{ color: '#cc0000' }}>ℹ️</span>
                   About SK Halalan 2025
                 </Link>
 
-                {/* Sub-link 2: Municipal Leadership */}
+                {/* Sub-link 2 */}
                 <Link
                   to="/leadership"
                   onClick={() => setMenuOpen(false)}
+                  className="accordion-sub-link"
                   style={accordionSubLinkStyle}
                 >
                   <span style={{ color: '#cc0000' }}>🏛️</span>
                   Municipal Leadership
                 </Link>
 
-                {/* Sub-link 3: Developer */}
+                {/* Sub-link 3 */}
                 <Link
                   to="/developer"
                   onClick={() => setMenuOpen(false)}
+                  className="accordion-sub-link"
                   style={accordionSubLinkStyle}
                 >
                   <span style={{ color: '#cc0000' }}>💻</span>
@@ -629,6 +722,7 @@ function Navbar() {
             <Link 
               to="/candidates" 
               onClick={() => setMenuOpen(false)} 
+              className="drawer-link"
               style={drawerLinkStyle('/candidates')}
             >
               👥 Candidates
