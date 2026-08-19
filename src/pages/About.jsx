@@ -192,20 +192,7 @@ function About() {
             flexWrap: isMobile ? 'wrap' : 'nowrap',
           }}>
 
-            {/* Left: icon circle */}
-            <div style={{
-              width: '80px',
-              height: '80px',
-              borderRadius: '50%',
-              background: '#fff0f0',
-              display: 'flex',
-              alignItems: 'center',
-              justifyContent: 'center',
-              fontSize: '36px',
-              flexShrink: 0,
-            }}>
-              👥
-            </div>
+
 
             {/* Middle: text */}
             <div style={{ flex: 1 }}>
@@ -230,22 +217,6 @@ function About() {
               </p>
             </div>
 
-            {/* Right: illustration — desktop only */}
-            {isDesktop && (
-              <div style={{
-                width: '160px',
-                height: '120px',
-                background: '#fff0f0',
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '60px',
-                flexShrink: 0,
-              }}>
-                🙌
-              </div>
-            )}
           </div>
         </Card>
 
@@ -261,7 +232,7 @@ function About() {
 
           {/* WHO CAN VOTE */}
           <Card>
-            <SectionTitle icon="👤" title="Who Can Vote?" />
+            <SectionTitle  title="Who Can Vote?" />
 
             {/* 3 requirement cards */}
             <div style={{
@@ -343,7 +314,7 @@ function About() {
 
           {/* WHO CAN RUN */}
           <Card>
-            <SectionTitle icon="🏃" title="Who Can Run for SK?" />
+            <SectionTitle title="Who Can Run for SK?" />
 
             {/* Checklist */}
             <div style={{
@@ -355,7 +326,7 @@ function About() {
               {[
                 'Filipino citizen',
                 'At least 15 years old and not more than 30 years old on election day',
-                'A resident of the barangay for at least six (6) months immediately preceding the election',
+                'A resident of the barangay for at least six (6) months',
                 'Not disqualified by law',
               ].map((item, i) => (
                 <div key={i} style={{
@@ -425,7 +396,7 @@ function About() {
 
           {/* POSITIONS TO BE ELECTED */}
           <Card>
-            <SectionTitle icon="👑" title="Positions to be Elected" />
+            <SectionTitle title="Positions to be Elected" />
 
             <div style={{
               display: 'grid',
@@ -489,7 +460,7 @@ function About() {
 
           {/* RESPONSIBILITIES OF THE SK */}
           <Card>
-            <SectionTitle icon="👤" title="Responsibilities of the SK" />
+            <SectionTitle title="Responsibilities of the SK" />
 
             {/* 4 responsibility icons in a row */}
             <div style={{
@@ -553,7 +524,7 @@ function About() {
 
           {/* WHY YOUR VOTE MATTERS */}
           <Card>
-            <SectionTitle icon="❤️" title="Why Your Vote Matters" />
+            <SectionTitle title="Why Your Vote Matters" />
 
             <p style={{
               fontSize: '13px',
@@ -598,7 +569,7 @@ function About() {
 
           {/* ELECTION TIMELINE */}
           <Card>
-            <SectionTitle icon="📅" title="Election Timeline" />
+            <SectionTitle title="Election Timeline" />
 
             <div style={{
               display: 'grid',
@@ -687,7 +658,7 @@ function About() {
         {/* 2 columns on desktop, 1 on mobile          */}
         {/* ============================================= */}
         <Card>
-          <SectionTitle icon="❓" title="Frequently Asked Questions" />
+          <SectionTitle title="Frequently Asked Questions" />
 
           <div style={{
             display: 'grid',
@@ -766,7 +737,7 @@ function About() {
           borderRadius: '10px',
           padding: '16px 20px',
         }}>
-          <span style={{ fontSize: '18px', flexShrink: 0 }}>🛡️</span>
+
           <p style={{
             fontSize: '12px',
             color: '#666',
@@ -830,7 +801,7 @@ function About() {
               margin: isMobile ? '0 auto' : 0,
             }}
           >
-            👥 View Candidates
+             View Candidates
           </button>
         </div>
 
