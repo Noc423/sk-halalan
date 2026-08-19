@@ -23,7 +23,6 @@ function About() {
 
   // ================================================
   // FAQ DATA
-  // Array of questions and answers
   // ================================================
   const faqs = [
     {
@@ -53,10 +52,9 @@ function About() {
   ]
 
   // ================================================
-  // REUSABLE COMPONENTS
+  // REUSABLE SECTION TITLE COMPONENT
+  // Shows icon + red title text
   // ================================================
-
-  // Section title with red left border accent
   const SectionTitle = ({ icon, title }) => (
     <div style={{
       display: 'flex',
@@ -77,7 +75,10 @@ function About() {
     </div>
   )
 
-  // Card wrapper — white card with subtle border
+  // ================================================
+  // REUSABLE CARD COMPONENT
+  // White card with subtle border and rounded corners
+  // ================================================
   const Card = ({ children, style = {} }) => (
     <div style={{
       background: '#fff',
@@ -95,13 +96,15 @@ function About() {
 
       {/* ================================================ */}
       {/* HERO SECTION                                     */}
-      {/* Dark red with Candaba Hall background image     */}
+      {/* Dark red with Candaba Hall background            */}
+      {/* Text is centered                                */}
       {/* ================================================ */}
       <div style={{
         position: 'relative',
-        height: isMobile ? '220px' : '260px',
+        height: isMobile ? '220px' : '280px',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: 'center',
         overflow: 'hidden',
       }}>
 
@@ -121,16 +124,19 @@ function About() {
           background: 'rgba(80,0,0,0.72)',
         }} />
 
-        {/* Hero text content */}
+        {/* Hero text — centered */}
         <div style={{
           position: 'relative',
           padding: isMobile ? '0 20px' : '0 48px',
           maxWidth: '700px',
+          width: '100%',
+          textAlign: 'center',
+          margin: '0 auto',
         }}>
 
           {/* Page title */}
           <h1 style={{
-            fontSize: isMobile ? '24px' : '32px',
+            fontSize: isMobile ? '24px' : '34px',
             fontWeight: 700,
             color: '#fff',
             fontFamily: 'Georgia, serif',
@@ -154,7 +160,6 @@ function About() {
             fontSize: isMobile ? '12px' : '13px',
             color: '#ffdddd',
             lineHeight: 1.7,
-            maxWidth: '500px',
           }}>
             SK Halalan 2026 is an official online platform that provides
             accurate and accessible information about all official candidates
@@ -165,12 +170,12 @@ function About() {
 
       {/* ================================================ */}
       {/* MAIN CONTENT                                     */}
-      {/* Max width container centered on desktop         */}
+      {/* Wider max width to fill desktop screen          */}
       {/* ================================================ */}
       <div style={{
-        maxWidth: '1100px',
+        maxWidth: '1400px',
         margin: '0 auto',
-        padding: isMobile ? '20px 16px' : '32px 24px',
+        padding: isMobile ? '20px 16px' : '32px 40px',
         display: 'flex',
         flexDirection: 'column',
         gap: '20px',
@@ -178,13 +183,12 @@ function About() {
 
         {/* ============================================= */}
         {/* WHAT IS THE SANGGUNIANG KABATAAN             */}
-        {/* Icon + text on left, illustration on right   */}
         {/* ============================================= */}
         <Card>
           <div style={{
             display: 'flex',
             alignItems: 'center',
-            gap: '20px',
+            gap: '24px',
             flexWrap: isMobile ? 'wrap' : 'nowrap',
           }}>
 
@@ -206,7 +210,7 @@ function About() {
             {/* Middle: text */}
             <div style={{ flex: 1 }}>
               <h2 style={{
-                fontSize: isMobile ? '16px' : '18px',
+                fontSize: isMobile ? '16px' : '20px',
                 fontWeight: 700,
                 color: '#8b0000',
                 fontFamily: 'Georgia, serif',
@@ -259,7 +263,7 @@ function About() {
           <Card>
             <SectionTitle icon="👤" title="Who Can Vote?" />
 
-            {/* 3 requirement cards in a row */}
+            {/* 3 requirement cards */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
@@ -267,9 +271,24 @@ function About() {
               marginBottom: '14px',
             }}>
               {[
-                { icon: '👥', title: 'Age Requirement', value: '15–30 years old', sub: 'Registered SK voters' },
-                { icon: '🏠', title: 'Residency', value: 'Must be a resident', sub: 'of the barangay' },
-                { icon: '📋', title: 'Registration', value: 'Must be registered', sub: 'with COMELEC' },
+                {
+                  icon: '👥',
+                  title: 'Age Requirement',
+                  value: '15–30 years old',
+                  sub: 'Registered SK voters',
+                },
+                {
+                  icon: '🏠',
+                  title: 'Residency',
+                  value: 'Must be a resident',
+                  sub: 'of the barangay',
+                },
+                {
+                  icon: '📋',
+                  title: 'Registration',
+                  value: 'Must be registered',
+                  sub: 'with COMELEC',
+                },
               ].map((item, i) => (
                 <div key={i} style={{
                   background: '#fafafa',
@@ -344,7 +363,7 @@ function About() {
                   alignItems: 'flex-start',
                   gap: '10px',
                 }}>
-                  {/* Red checkmark */}
+                  {/* Red checkmark circle */}
                   <div style={{
                     width: '20px',
                     height: '20px',
@@ -356,9 +375,19 @@ function About() {
                     flexShrink: 0,
                     marginTop: '1px',
                   }}>
-                    <span style={{ color: '#fff', fontSize: '10px', fontWeight: 700 }}>✓</span>
+                    <span style={{
+                      color: '#fff',
+                      fontSize: '10px',
+                      fontWeight: 700,
+                    }}>
+                      ✓
+                    </span>
                   </div>
-                  <span style={{ fontSize: '13px', color: '#444', lineHeight: 1.6 }}>
+                  <span style={{
+                    fontSize: '13px',
+                    color: '#444',
+                    lineHeight: 1.6,
+                  }}>
                     {item}
                   </span>
                 </div>
@@ -404,25 +433,25 @@ function About() {
               gap: '14px',
             }}>
 
-              {/* Chairperson */}
+              {/* SK Chairperson */}
               <div style={{
                 background: '#fafafa',
                 border: '0.5px solid #eee',
                 borderRadius: '10px',
-                padding: '20px',
+                padding: '24px 20px',
                 textAlign: 'center',
               }}>
-                <div style={{ fontSize: '36px', marginBottom: '10px' }}>👑</div>
+                <div style={{ fontSize: '40px', marginBottom: '10px' }}>👑</div>
                 <div style={{
                   fontSize: '14px',
                   fontWeight: 700,
                   color: '#333',
-                  marginBottom: '4px',
+                  marginBottom: '6px',
                 }}>
                   SK Chairperson
                 </div>
                 <div style={{
-                  fontSize: '13px',
+                  fontSize: '14px',
                   color: '#cc0000',
                   fontWeight: 700,
                 }}>
@@ -430,25 +459,25 @@ function About() {
                 </div>
               </div>
 
-              {/* Councilors */}
+              {/* SK Councilors */}
               <div style={{
                 background: '#fafafa',
                 border: '0.5px solid #eee',
                 borderRadius: '10px',
-                padding: '20px',
+                padding: '24px 20px',
                 textAlign: 'center',
               }}>
-                <div style={{ fontSize: '36px', marginBottom: '10px' }}>👥</div>
+                <div style={{ fontSize: '40px', marginBottom: '10px' }}>👥</div>
                 <div style={{
                   fontSize: '14px',
                   fontWeight: 700,
                   color: '#333',
-                  marginBottom: '4px',
+                  marginBottom: '6px',
                 }}>
                   SK Councilors
                 </div>
                 <div style={{
-                  fontSize: '13px',
+                  fontSize: '14px',
                   color: '#cc0000',
                   fontWeight: 700,
                 }}>
@@ -458,11 +487,11 @@ function About() {
             </div>
           </Card>
 
-          {/* RESPONSIBILITIES */}
+          {/* RESPONSIBILITIES OF THE SK */}
           <Card>
             <SectionTitle icon="👤" title="Responsibilities of the SK" />
 
-            {/* 4 responsibility icons */}
+            {/* 4 responsibility icons in a row */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
@@ -477,20 +506,20 @@ function About() {
               ].map((item, i) => (
                 <div key={i} style={{ textAlign: 'center' }}>
                   <div style={{
-                    width: '48px',
-                    height: '48px',
+                    width: '52px',
+                    height: '52px',
                     borderRadius: '50%',
                     background: '#fff0f0',
                     display: 'flex',
                     alignItems: 'center',
                     justifyContent: 'center',
-                    fontSize: '22px',
+                    fontSize: '24px',
                     margin: '0 auto 8px',
                   }}>
                     {item.icon}
                   </div>
                   <div style={{
-                    fontSize: '10px',
+                    fontSize: '11px',
                     color: '#555',
                     fontWeight: 600,
                     lineHeight: 1.4,
@@ -542,7 +571,7 @@ function About() {
               background: '#fff0f0',
               border: '0.5px solid #ffcccc',
               borderRadius: '8px',
-              padding: '14px 16px',
+              padding: '16px',
               display: 'flex',
               alignItems: 'flex-start',
               gap: '12px',
@@ -553,7 +582,7 @@ function About() {
                   fontSize: '13px',
                   fontWeight: 700,
                   color: '#8b0000',
-                  marginBottom: '2px',
+                  marginBottom: '3px',
                 }}>
                   Vote wisely. Vote responsibly.
                 </div>
@@ -571,7 +600,6 @@ function About() {
           <Card>
             <SectionTitle icon="📅" title="Election Timeline" />
 
-            {/* Timeline steps */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
@@ -584,9 +612,12 @@ function About() {
                 { num: '3', icon: '🗳️', label: 'Election Day', date: 'Nov 2026' },
                 { num: '4', icon: '🏆', label: 'Proclamation', date: 'To be announced' },
               ].map((step, i) => (
-                <div key={i} style={{ textAlign: 'center', position: 'relative' }}>
+                <div key={i} style={{
+                  textAlign: 'center',
+                  position: 'relative',
+                }}>
 
-                  {/* Dotted line connecting steps — not on last item */}
+                  {/* Dotted connecting line — not on last item */}
                   {i < 3 && (
                     <div style={{
                       position: 'absolute',
@@ -603,7 +634,7 @@ function About() {
                     width: '48px',
                     height: '48px',
                     borderRadius: '50%',
-                    // Highlight election day in red
+                    // Election Day highlighted in red
                     background: step.num === '3' ? '#cc0000' : '#fff0f0',
                     border: step.num === '3' ? 'none' : '1px solid #ffcccc',
                     display: 'flex',
@@ -724,7 +755,7 @@ function About() {
         </Card>
 
         {/* ============================================= */}
-        {/* BOTTOM DISCLAIMER NOTE                      */}
+        {/* DISCLAIMER NOTE                             */}
         {/* ============================================= */}
         <div style={{
           display: 'flex',
@@ -733,7 +764,7 @@ function About() {
           background: '#fff',
           border: '0.5px solid #eee',
           borderRadius: '10px',
-          padding: '14px 16px',
+          padding: '16px 20px',
         }}>
           <span style={{ fontSize: '18px', flexShrink: 0 }}>🛡️</span>
           <p style={{
@@ -742,14 +773,17 @@ function About() {
             lineHeight: 1.7,
             margin: 0,
           }}>
-            Information on this platform is based on official announcements and applicable election laws.
-            Voters are encouraged to refer to the Commission on Elections (COMELEC) and the Municipality
-            of Candaba for official updates.
+            Information on this platform is based on official announcements
+            and applicable election laws. Voters are encouraged to refer to
+            the Commission on Elections (COMELEC) and the Municipality of
+            Candaba for official updates.
           </p>
         </div>
 
         {/* ============================================= */}
-        {/* CTA BUTTON                                  */}
+        {/* CTA BANNER                                  */}
+        {/* Text left, button right on desktop          */}
+        {/* Centered on mobile                          */}
         {/* ============================================= */}
         <div style={{
           background: 'linear-gradient(135deg, #1a0000, #6b0000)',
@@ -792,8 +826,8 @@ function About() {
               fontWeight: 600,
               cursor: 'pointer',
               whiteSpace: 'nowrap',
-              margin: isMobile ? '0 auto' : 0,
               display: 'block',
+              margin: isMobile ? '0 auto' : 0,
             }}
           >
             👥 View Candidates
