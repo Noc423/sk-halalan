@@ -189,7 +189,14 @@ function Home() {
             Know Your <span style={{ color: '#ffaaaa' }}>Candidates.</span>
           </h1>
 
-
+          {/* Subtitle */}
+          <p style={{
+            fontSize: isMobile ? '12px' : '14px',
+            color: '#ffcccc',
+            marginBottom: '12px',
+          }}>
+            Official Candidate Information Portal
+          </p>
 
           {/* Typewriter box — wider on desktop */}
           <div style={{

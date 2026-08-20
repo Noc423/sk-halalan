@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, useEffect } from 'react'
 import { useNavigate } from 'react-router-dom'
 import useWindowSize from '../hooks/useWindowSize'
 
@@ -8,15 +8,22 @@ function About() {
   const { isMobile, isDesktop } = useWindowSize()
 
   // ================================================
+  // HERO ANIMATION STATE
+  // Fades in the hero content on page load
+  // ================================================
+  const [heroVisible, setHeroVisible] = useState(false)
+
+  useEffect(() => {
+    // Small delay then fade in
+    const timer = setTimeout(() => setHeroVisible(true), 100)
+    return () => clearTimeout(timer)
+  }, [])
+
+  // ================================================
   // FAQ ACCORDION STATE
-  // Tracks which FAQ item is open
-  // null = none open, number = index of open item
   // ================================================
   const [openFaq, setOpenFaq] = useState(null)
 
-  // Toggles FAQ open/close
-  // If clicking the same one = close it
-  // If clicking different one = open it
   const toggleFaq = (index) => {
     setOpenFaq(openFaq === index ? null : index)
   }
@@ -53,7 +60,6 @@ function About() {
 
   // ================================================
   // REUSABLE SECTION TITLE COMPONENT
-  // Shows icon + red title text
   // ================================================
   const SectionTitle = ({ icon, title }) => (
     <div style={{
@@ -77,7 +83,6 @@ function About() {
 
   // ================================================
   // REUSABLE CARD COMPONENT
-  // White card with subtle border and rounded corners
   // ================================================
   const Card = ({ children, style = {} }) => (
     <div style={{
@@ -95,13 +100,73 @@ function About() {
     <div style={{ background: '#f5f5f5' }}>
 
       {/* ================================================ */}
+      {/* ANIMATIONS via style tag                        */}
+      {/* ================================================ */}
+      <style>{`
+
+        /* Fade up animation for hero content */
+        @keyframes fadeUp {
+          from {
+            opacity: 0;
+            transform: translateY(24px);
+          }
+          to {
+            opacity: 1;
+            transform: translateY(0);
+          }
+        }
+
+        /* Fade in animation */
+        @keyframes fadeIn {
+          from { opacity: 0; }
+          to { opacity: 1; }
+        }
+
+        /* Subtle pulse on the eyebrow line */
+        @keyframes pulse {
+          0%, 100% { opacity: 0.6; }
+          50% { opacity: 1; }
+        }
+
+        /* Shimmer effect on hero pattern */
+        @keyframes shimmer {
+          0% { transform: translateX(-100%); }
+          100% { transform: translateX(100%); }
+        }
+
+        /* FAQ hover effect */
+        .faq-item:hover {
+          border-color: #ffcccc !important;
+        }
+
+        /* Card hover lift effect */
+        .hover-card {
+          transition: transform 0.2s ease, box-shadow 0.2s ease !important;
+        }
+        .hover-card:hover {
+          transform: translateY(-3px) !important;
+          box-shadow: 0 8px 24px rgba(0,0,0,0.08) !important;
+        }
+
+        /* Responsibility icon hover */
+        .resp-icon:hover {
+          background: #cc0000 !important;
+          transform: scale(1.1) !important;
+        }
+        .resp-icon {
+          transition: background 0.2s, transform 0.2s !important;
+        }
+
+      `}</style>
+
+      {/* ================================================ */}
       {/* HERO SECTION                                     */}
-      {/* Dark red with Candaba Hall background            */}
-      {/* Text is centered                                */}
+      {/* Matches home page hero style                    */}
+      {/* Candaba Hall bg + dark red tint + animations    */}
       {/* ================================================ */}
       <div style={{
         position: 'relative',
-        height: isMobile ? '220px' : '340px',
+        height: isMobile ? '280px' : '340px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -115,62 +180,164 @@ function About() {
           backgroundImage: "url('/candaba-hall.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
+          // Slightly zoomed in for depth effect
+          transform: 'scale(1.05)',
+          transition: 'transform 8s ease',
         }} />
 
-        {/* Dark red tint overlay */}
+        {/* Dark red tint — same as home page */}
         <div style={{
           position: 'absolute',
           inset: 0,
           background: 'rgba(35,0,0,0.65)',
         }} />
 
-        {/* Hero text — centered */}
+        {/* Diagonal pattern overlay — same as home page */}
+
+
+        {/* Bottom gradient fade */}
+        <div style={{
+          position: 'absolute',
+          bottom: 0,
+          left: 0,
+          right: 0,
+          height: '80px',
+          background: 'linear-gradient(to bottom, transparent, rgba(60,0,0,0.3))',
+        }} />
+
+        {/* Hero content — fades up on load */}
         <div style={{
           position: 'relative',
-          padding: isMobile ? '0 20px' : '0 48px',
-          maxWidth: '700px',
-          width: '100%',
           textAlign: 'center',
-          margin: '0 auto',
+          padding: isMobile ? '0 20px' : '0 48px',
+          maxWidth: '800px',
+          width: '100%',
+          // Fade up animation triggered by heroVisible state
+          animation: heroVisible ? 'fadeUp 0.7s ease forwards' : 'none',
+          opacity: heroVisible ? 1 : 0,
         }}>
 
-          {/* Page title */}
+          {/* Eyebrow — small label above title */}
+          <div style={{
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            gap: '10px',
+            marginBottom: '12px',
+          }}>
+            <div style={{
+              width: '32px',
+              height: '1px',
+              background: '#ff6666',
+              animation: 'pulse 2s infinite',
+            }} />
+            <span style={{
+              fontSize: isMobile ? '10px' : '11px',
+              color: '#ffaaaa',
+              letterSpacing: '0.14em',
+              textTransform: 'uppercase',
+              fontWeight: 500,
+            }}>
+              Official SK Halalan 2026
+            </span>
+            <div style={{
+              width: '32px',
+              height: '1px',
+              background: '#ff6666',
+              animation: 'pulse 2s infinite',
+            }} />
+          </div>
+
+          {/* Main title */}
           <h1 style={{
-            fontSize: isMobile ? '24px' : '34px',
+            fontSize: isMobile ? '28px' : '42px',
             fontWeight: 700,
             color: '#fff',
             fontFamily: 'Georgia, serif',
-            marginBottom: '8px',
+            marginBottom: '10px',
+            lineHeight: 1.2,
+            // Text shadow for depth
+            textShadow: '0 2px 20px rgba(0,0,0,0.3)',
           }}>
-            About SK Halalan 2026
+            About SK Halalan{' '}
+            <span style={{ color: '#ffaaaa' }}>2026</span>
           </h1>
 
-          {/* Subtitle */}
-          <p style={{
-            fontSize: isMobile ? '12px' : '14px',
-            color: '#ffcccc',
-            marginBottom: '12px',
-            fontWeight: 500,
-          }}>
-            Official Candidate Information Portal
-          </p>
+
+
+          {/* Divider line */}
+          <div style={{
+            width: '200px',
+            height: '2px',
+            background: 'rgba(255,100,100,0.5)',
+            margin: '0 auto 14px',
+            borderRadius: '1px',
+          }} />
 
           {/* Description */}
           <p style={{
-            fontSize: isMobile ? '12px' : '13px',
+            fontSize: isMobile ? '12px' : '14px',
             color: '#ffdddd',
-            lineHeight: 1.7,
+            lineHeight: 1.8,
+            maxWidth: '600px',
+            margin: '0 auto',
           }}>
-            SK Halalan 2026 is an official online platform that provides
+            Official online platform that provides
             accurate and accessible information about all official candidates
             for the Sangguniang Kabataan Elections in the Municipality of Candaba.
           </p>
+
         </div>
+
+        {/* Floating badges — desktop only */}
+        {isDesktop && (
+          <>
+            {/* Left badge */}
+            <div style={{
+              position: 'absolute',
+              left: '40px',
+              bottom: '30px',
+              background: 'rgba(255,255,255,0.1)',
+              border: '0.5px solid rgba(255,255,255,0.2)',
+              borderRadius: '99px',
+              padding: '6px 14px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              animation: 'fadeIn 1s ease 0.5s both',
+            }}>
+              <span style={{ fontSize: '14px' }}>🗳️</span>
+              <span style={{ fontSize: '11px', color: '#ffcccc', fontWeight: 500 }}>
+                November 2026
+              </span>
+            </div>
+
+            {/* Right badge */}
+            <div style={{
+              position: 'absolute',
+              right: '40px',
+              bottom: '30px',
+              background: 'rgba(255,255,255,0.1)',
+              border: '0.5px solid rgba(255,255,255,0.2)',
+              borderRadius: '99px',
+              padding: '6px 14px',
+              display: 'flex',
+              alignItems: 'center',
+              gap: '6px',
+              animation: 'fadeIn 1s ease 0.7s both',
+            }}>
+              <span style={{ fontSize: '14px' }}>📍</span>
+              <span style={{ fontSize: '11px', color: '#ffcccc', fontWeight: 500 }}>
+                Candaba, Pampanga
+              </span>
+            </div>
+          </>
+        )}
+
       </div>
 
       {/* ================================================ */}
       {/* MAIN CONTENT                                     */}
-      {/* Wider max width to fill desktop screen          */}
       {/* ================================================ */}
       <div style={{
         maxWidth: '1400px',
@@ -184,7 +351,7 @@ function About() {
         {/* ============================================= */}
         {/* WHAT IS THE SANGGUNIANG KABATAAN             */}
         {/* ============================================= */}
-        <Card>
+        <Card style={{ borderLeft: '3px solid #cc0000' }}>
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -193,8 +360,7 @@ function About() {
           }}>
 
 
-
-            {/* Middle: text */}
+            {/* Text */}
             <div style={{ flex: 1 }}>
               <h2 style={{
                 fontSize: isMobile ? '16px' : '20px',
@@ -208,7 +374,7 @@ function About() {
               <p style={{
                 fontSize: isMobile ? '13px' : '14px',
                 color: '#555',
-                lineHeight: 1.8,
+                lineHeight: 1.9,
               }}>
                 The Sangguniang Kabataan (SK) is the official youth council in every
                 barangay in the Philippines. It represents the youth sector and acts
@@ -217,12 +383,28 @@ function About() {
               </p>
             </div>
 
+            {/* Illustration — desktop only */}
+            {isDesktop && (
+              <div style={{
+                width: '160px',
+                height: '120px',
+                background: 'linear-gradient(135deg, #fff0f0, #ffd6d6)',
+                borderRadius: '12px',
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: '60px',
+                flexShrink: 0,
+                border: '1px solid #ffcccc',
+              }}>
+                🙌
+              </div>
+            )}
           </div>
         </Card>
 
         {/* ============================================= */}
         {/* WHO CAN VOTE + WHO CAN RUN                  */}
-        {/* 2 columns on desktop, stacked on mobile     */}
         {/* ============================================= */}
         <div style={{
           display: 'grid',
@@ -231,10 +413,8 @@ function About() {
         }}>
 
           {/* WHO CAN VOTE */}
-          <Card>
+          <Card className="hover-card">
             <SectionTitle  title="Who Can Vote?" />
-
-            {/* 3 requirement cards */}
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(3, 1fr)',
@@ -242,61 +422,31 @@ function About() {
               marginBottom: '14px',
             }}>
               {[
-                {
-                  icon: '👥',
-                  title: 'Age Requirement',
-                  value: '15–30 years old',
-                  sub: 'Registered SK voters',
-                },
-                {
-                  icon: '🏠',
-                  title: 'Residency',
-                  value: 'Must be a resident',
-                  sub: 'of the barangay',
-                },
-                {
-                  icon: '📋',
-                  title: 'Registration',
-                  value: 'Must be registered',
-                  sub: 'with COMELEC',
-                },
+                { icon: '👥', title: 'Age Requirement', value: '15–30 years old', sub: 'Registered SK voters' },
+                { icon: '🏠', title: 'Residency', value: 'Must be a resident', sub: 'of the barangay' },
+                { icon: '📋', title: 'Registration', value: 'Must be registered', sub: 'with COMELEC' },
               ].map((item, i) => (
                 <div key={i} style={{
-                  background: '#fafafa',
+                  background: 'linear-gradient(135deg, #fafafa, #fff8f8)',
                   border: '0.5px solid #eee',
                   borderRadius: '8px',
+                  borderTop: '2px solid #cc0000',
                   padding: '12px 8px',
                   textAlign: 'center',
                 }}>
                   <div style={{ fontSize: '22px', marginBottom: '6px' }}>{item.icon}</div>
-                  <div style={{
-                    fontSize: '10px',
-                    fontWeight: 700,
-                    color: '#333',
-                    marginBottom: '4px',
-                  }}>
+                  <div style={{ fontSize: '10px', fontWeight: 700, color: '#333', marginBottom: '4px' }}>
                     {item.title}
                   </div>
-                  <div style={{
-                    fontSize: '11px',
-                    color: '#cc0000',
-                    fontWeight: 600,
-                    lineHeight: 1.4,
-                  }}>
+                  <div style={{ fontSize: '11px', color: '#cc0000', fontWeight: 600, lineHeight: 1.4 }}>
                     {item.value}
                   </div>
-                  <div style={{
-                    fontSize: '10px',
-                    color: '#888',
-                    lineHeight: 1.4,
-                  }}>
+                  <div style={{ fontSize: '10px', color: '#888', lineHeight: 1.4 }}>
                     {item.sub}
                   </div>
                 </div>
               ))}
             </div>
-
-            {/* Note */}
             <div style={{
               display: 'flex',
               alignItems: 'flex-start',
@@ -305,36 +455,24 @@ function About() {
               borderRadius: '6px',
               padding: '10px 12px',
             }}>
-              <span style={{ fontSize: '14px', flexShrink: 0 }}>ℹ️</span>
+
               <span style={{ fontSize: '11px', color: '#666', lineHeight: 1.5 }}>
-                Voters must be registered in the barangay where they reside.
+                * Voters must be registered in the barangay where they reside.
               </span>
             </div>
           </Card>
 
           {/* WHO CAN RUN */}
-          <Card>
-            <SectionTitle title="Who Can Run for SK?" />
-
-            {/* Checklist */}
-            <div style={{
-              display: 'flex',
-              flexDirection: 'column',
-              gap: '10px',
-              marginBottom: '14px',
-            }}>
+          <Card className="hover-card">
+            <SectionTitle icon="🏃" title="Who Can Run for SK?" />
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '14px' }}>
               {[
                 'Filipino citizen',
                 'At least 15 years old and not more than 30 years old on election day',
-                'A resident of the barangay for at least six (6) months',
+                'A resident of the barangay for at least six (6) months immediately preceding the election',
                 'Not disqualified by law',
               ].map((item, i) => (
-                <div key={i} style={{
-                  display: 'flex',
-                  alignItems: 'flex-start',
-                  gap: '10px',
-                }}>
-                  {/* Red checkmark circle */}
+                <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
                   <div style={{
                     width: '20px',
                     height: '20px',
@@ -346,26 +484,12 @@ function About() {
                     flexShrink: 0,
                     marginTop: '1px',
                   }}>
-                    <span style={{
-                      color: '#fff',
-                      fontSize: '10px',
-                      fontWeight: 700,
-                    }}>
-                      ✓
-                    </span>
+                    <span style={{ color: '#fff', fontSize: '10px', fontWeight: 700 }}>✓</span>
                   </div>
-                  <span style={{
-                    fontSize: '13px',
-                    color: '#444',
-                    lineHeight: 1.6,
-                  }}>
-                    {item}
-                  </span>
+                  <span style={{ fontSize: '13px', color: '#444', lineHeight: 1.6 }}>{item}</span>
                 </div>
               ))}
             </div>
-
-            {/* Note */}
             <div style={{
               display: 'flex',
               alignItems: 'flex-start',
@@ -375,9 +499,8 @@ function About() {
               borderRadius: '6px',
               padding: '10px 12px',
             }}>
-
               <span style={{ fontSize: '11px', color: '#8b0000', lineHeight: 1.5 }}>
-                For complete qualifications and disqualifications, please refer
+                * For complete qualifications and disqualifications, please refer
                 to the Omnibus Election Code and COMELEC guidelines.
               </span>
             </div>
@@ -386,7 +509,6 @@ function About() {
 
         {/* ============================================= */}
         {/* POSITIONS + RESPONSIBILITIES                 */}
-        {/* 2 columns on desktop, stacked on mobile     */}
         {/* ============================================= */}
         <div style={{
           display: 'grid',
@@ -394,75 +516,37 @@ function About() {
           gap: '20px',
         }}>
 
-          {/* POSITIONS TO BE ELECTED */}
-          <Card>
+          {/* POSITIONS */}
+          <Card className="hover-card">
             <SectionTitle title="Positions to be Elected" />
-
-            <div style={{
-              display: 'grid',
-              gridTemplateColumns: '1fr 1fr',
-              gap: '14px',
-            }}>
-
-              {/* SK Chairperson */}
-              <div style={{
-                background: '#fafafa',
-                border: '0.5px solid #eee',
-                borderRadius: '10px',
-                padding: '24px 20px',
-                textAlign: 'center',
-              }}>
-                <div style={{ fontSize: '40px', marginBottom: '10px' }}>👑</div>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  color: '#333',
-                  marginBottom: '6px',
+            <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '14px' }}>
+              {[
+                { icon: '👑', label: 'SK Chairperson', count: '1 Position' },
+                { icon: '👥', label: 'SK Councilors', count: '7 Positions' },
+              ].map((item, i) => (
+                <div key={i} style={{
+                  background: 'linear-gradient(135deg, #fafafa, #fff8f8)',
+                  border: '0.5px solid #eee',
+                  borderTop: '3px solid #cc0000',
+                  borderRadius: '10px',
+                  padding: '24px 20px',
+                  textAlign: 'center',
                 }}>
-                  SK Chairperson
+                  <div style={{ fontSize: '40px', marginBottom: '10px' }}>{item.icon}</div>
+                  <div style={{ fontSize: '14px', fontWeight: 700, color: '#333', marginBottom: '6px' }}>
+                    {item.label}
+                  </div>
+                  <div style={{ fontSize: '14px', color: '#cc0000', fontWeight: 700 }}>
+                    {item.count}
+                  </div>
                 </div>
-                <div style={{
-                  fontSize: '14px',
-                  color: '#cc0000',
-                  fontWeight: 700,
-                }}>
-                  1 Position
-                </div>
-              </div>
-
-              {/* SK Councilors */}
-              <div style={{
-                background: '#fafafa',
-                border: '0.5px solid #eee',
-                borderRadius: '10px',
-                padding: '24px 20px',
-                textAlign: 'center',
-              }}>
-                <div style={{ fontSize: '40px', marginBottom: '10px' }}>👥</div>
-                <div style={{
-                  fontSize: '14px',
-                  fontWeight: 700,
-                  color: '#333',
-                  marginBottom: '6px',
-                }}>
-                  SK Councilors
-                </div>
-                <div style={{
-                  fontSize: '14px',
-                  color: '#cc0000',
-                  fontWeight: 700,
-                }}>
-                  7 Positions
-                </div>
-              </div>
+              ))}
             </div>
           </Card>
 
-          {/* RESPONSIBILITIES OF THE SK */}
-          <Card>
-            <SectionTitle title="Responsibilities of the SK" />
-
-            {/* 4 responsibility icons in a row */}
+          {/* RESPONSIBILITIES */}
+          <Card className="hover-card">
+            <SectionTitle  title="Responsibilities of the SK" />
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
@@ -476,36 +560,30 @@ function About() {
                 { icon: '🤝', label: 'Youth Participation' },
               ].map((item, i) => (
                 <div key={i} style={{ textAlign: 'center' }}>
-                  <div style={{
-                    width: '52px',
-                    height: '52px',
-                    borderRadius: '50%',
-                    background: '#fff0f0',
-                    display: 'flex',
-                    alignItems: 'center',
-                    justifyContent: 'center',
-                    fontSize: '24px',
-                    margin: '0 auto 8px',
-                  }}>
+                  <div
+                    className="resp-icon"
+                    style={{
+                      width: '52px',
+                      height: '52px',
+                      borderRadius: '50%',
+                      background: '#fff0f0',
+                      display: 'flex',
+                      alignItems: 'center',
+                      justifyContent: 'center',
+                      fontSize: '24px',
+                      margin: '0 auto 8px',
+                      cursor: 'pointer',
+                    }}
+                  >
                     {item.icon}
                   </div>
-                  <div style={{
-                    fontSize: '11px',
-                    color: '#555',
-                    fontWeight: 600,
-                    lineHeight: 1.4,
-                  }}>
+                  <div style={{ fontSize: '11px', color: '#555', fontWeight: 600, lineHeight: 1.4 }}>
                     {item.label}
                   </div>
                 </div>
               ))}
             </div>
-
-            <p style={{
-              fontSize: '13px',
-              color: '#666',
-              lineHeight: 1.7,
-            }}>
+            <p style={{ fontSize: '13px', color: '#666', lineHeight: 1.7 }}>
               The SK works to promote the general welfare of the youth and
               initiates programs that build a stronger and better community.
             </p>
@@ -514,7 +592,6 @@ function About() {
 
         {/* ============================================= */}
         {/* WHY YOUR VOTE MATTERS + ELECTION TIMELINE   */}
-        {/* 2 columns on desktop, stacked on mobile     */}
         {/* ============================================= */}
         <div style={{
           display: 'grid',
@@ -523,54 +600,38 @@ function About() {
         }}>
 
           {/* WHY YOUR VOTE MATTERS */}
-          <Card>
+          <Card className="hover-card">
             <SectionTitle title="Why Your Vote Matters" />
-
-            <p style={{
-              fontSize: '13px',
-              color: '#555',
-              lineHeight: 1.8,
-              marginBottom: '16px',
-            }}>
+            <p style={{ fontSize: '13px', color: '#555', lineHeight: 1.8, marginBottom: '16px' }}>
               Your vote gives you the power to choose young leaders who will
               represent your voice, your ideas, and your future. Together,
               let's build a more progressive and empowered youth community.
             </p>
-
-            {/* Quote box */}
             <div style={{
-              background: '#fff0f0',
+              background: 'linear-gradient(135deg, #fff0f0, #fff8f8)',
               border: '0.5px solid #ffcccc',
+              borderLeft: '3px solid #cc0000',
               borderRadius: '8px',
               padding: '16px',
               display: 'flex',
               alignItems: 'flex-start',
               gap: '12px',
             }}>
-              <span style={{ fontSize: '20px', flexShrink: 0 }}>✅</span>
+
               <div>
-                <div style={{
-                  fontSize: '13px',
-                  fontWeight: 700,
-                  color: '#8b0000',
-                  marginBottom: '3px',
-                }}>
-                  Vote wisely. Vote responsibly.
+                <div style={{ fontSize: '12px', fontWeight: 600, color: '#8b0000', }}>
+                Vote wisely. Vote responsibly. || 
                 </div>
-                <div style={{
-                  fontSize: '12px',
-                  color: '#666',
-                }}>
-                  Your voice. Your choice. Your future.
+                <div style={{ fontSize: '11px', color: '#666' }}>
+                    Your voice. Your choice. Your future.
                 </div>
               </div>
             </div>
           </Card>
 
           {/* ELECTION TIMELINE */}
-          <Card>
+          <Card className="hover-card">
             <SectionTitle title="Election Timeline" />
-
             <div style={{
               display: 'grid',
               gridTemplateColumns: 'repeat(4, 1fr)',
@@ -583,12 +644,7 @@ function About() {
                 { num: '3', icon: '🗳️', label: 'Election Day', date: 'Nov 2026' },
                 { num: '4', icon: '🏆', label: 'Proclamation', date: 'To be announced' },
               ].map((step, i) => (
-                <div key={i} style={{
-                  textAlign: 'center',
-                  position: 'relative',
-                }}>
-
-                  {/* Dotted connecting line — not on last item */}
+                <div key={i} style={{ textAlign: 'center', position: 'relative' }}>
                   {i < 3 && (
                     <div style={{
                       position: 'absolute',
@@ -599,13 +655,10 @@ function About() {
                       zIndex: 0,
                     }}/>
                   )}
-
-                  {/* Icon circle */}
                   <div style={{
                     width: '48px',
                     height: '48px',
                     borderRadius: '50%',
-                    // Election Day highlighted in red
                     background: step.num === '3' ? '#cc0000' : '#fff0f0',
                     border: step.num === '3' ? 'none' : '1px solid #ffcccc',
                     display: 'flex',
@@ -618,28 +671,10 @@ function About() {
                   }}>
                     {step.icon}
                   </div>
-
-                  {/* Step number */}
-                  <div style={{
-                    fontSize: '10px',
-                    color: '#aaa',
-                    marginBottom: '3px',
-                  }}>
-                    {step.num}
-                  </div>
-
-                  {/* Step label */}
-                  <div style={{
-                    fontSize: '10px',
-                    fontWeight: 700,
-                    color: '#333',
-                    marginBottom: '2px',
-                    lineHeight: 1.3,
-                  }}>
+                  <div style={{ fontSize: '10px', color: '#aaa', marginBottom: '3px' }}>{step.num}</div>
+                  <div style={{ fontSize: '10px', fontWeight: 700, color: '#333', marginBottom: '2px', lineHeight: 1.3 }}>
                     {step.label}
                   </div>
-
-                  {/* Date */}
                   <div style={{
                     fontSize: '10px',
                     color: step.num === '3' ? '#cc0000' : '#999',
@@ -655,11 +690,9 @@ function About() {
 
         {/* ============================================= */}
         {/* FAQ ACCORDION                               */}
-        {/* 2 columns on desktop, 1 on mobile          */}
         {/* ============================================= */}
         <Card>
-          <SectionTitle title="Frequently Asked Questions" />
-
+          <SectionTitle  title="Frequently Asked Questions" />
           <div style={{
             display: 'grid',
             gridTemplateColumns: isDesktop ? '1fr 1fr' : '1fr',
@@ -668,15 +701,16 @@ function About() {
             {faqs.map((faq, i) => (
               <div
                 key={i}
+                className="faq-item"
                 style={{
                   border: '0.5px solid #eee',
                   borderRadius: '8px',
                   overflow: 'hidden',
                   cursor: 'pointer',
+                  transition: 'border-color 0.15s',
                 }}
                 onClick={() => toggleFaq(i)}
               >
-                {/* Question row */}
                 <div style={{
                   display: 'flex',
                   alignItems: 'center',
@@ -694,7 +728,6 @@ function About() {
                   }}>
                     {faq.question}
                   </span>
-                  {/* Arrow rotates when open */}
                   <span style={{
                     fontSize: '12px',
                     color: '#cc0000',
@@ -706,8 +739,6 @@ function About() {
                     ▾
                   </span>
                 </div>
-
-                {/* Answer — only shows when this FAQ is open */}
                 {openFaq === i && (
                   <div style={{
                     padding: '12px 16px',
@@ -716,6 +747,7 @@ function About() {
                     lineHeight: 1.7,
                     background: '#fff',
                     borderTop: '0.5px solid #eee',
+                    animation: 'fadeIn 0.2s ease',
                   }}>
                     {faq.answer}
                   </div>
@@ -726,7 +758,7 @@ function About() {
         </Card>
 
         {/* ============================================= */}
-        {/* DISCLAIMER NOTE                             */}
+        {/* DISCLAIMER                                  */}
         {/* ============================================= */}
         <div style={{
           display: 'flex',
@@ -738,37 +770,41 @@ function About() {
           padding: '16px 20px',
         }}>
 
-          <p style={{
-            fontSize: '12px',
-            color: '#666',
-            lineHeight: 1.7,
-            margin: 0,
-          }}>
-            Information on this platform is based on official announcements
-            and applicable election laws. Voters are encouraged to refer to
-            the Commission on Elections (COMELEC) and the Municipality of
-            Candaba for official updates.
+          <p style={{ fontSize: '12px', color: '#666', lineHeight: 1.7, margin: 0 }}>
+            Information on this platform is based on official announcements and applicable election laws.
+            Voters are encouraged to refer to the Commission on Elections (COMELEC) and the Municipality
+            of Candaba for official updates.
           </p>
         </div>
 
         {/* ============================================= */}
         {/* CTA BANNER                                  */}
-        {/* Text left, button right on desktop          */}
-        {/* Centered on mobile                          */}
         {/* ============================================= */}
         <div style={{
           background: 'linear-gradient(135deg, #1a0000, #6b0000)',
           borderRadius: '12px',
-          padding: isMobile ? '24px 20px' : '32px 40px',
+          padding: isMobile ? '24px 20px' : '36px 48px',
           display: isDesktop ? 'flex' : 'block',
           alignItems: 'center',
           justifyContent: 'space-between',
           gap: '20px',
           textAlign: isMobile ? 'center' : 'left',
+          position: 'relative',
+          overflow: 'hidden',
         }}>
-          <div>
+
+          {/* Subtle pattern overlay */}
+          <div style={{
+            position: 'absolute',
+            inset: 0,
+            opacity: 0.04,
+            backgroundImage: 'repeating-linear-gradient(45deg, #fff 0, #fff 1px, transparent 0, transparent 50%)',
+            backgroundSize: '12px 12px',
+          }} />
+
+          <div style={{ position: 'relative' }}>
             <div style={{
-              fontSize: isMobile ? '18px' : '22px',
+              fontSize: isMobile ? '18px' : '24px',
               fontWeight: 700,
               color: '#fff',
               fontFamily: 'Georgia, serif',
@@ -788,6 +824,7 @@ function About() {
           <button
             onClick={() => navigate('/candidates')}
             style={{
+              position: 'relative',
               background: '#cc0000',
               color: '#fff',
               border: 'none',
@@ -799,6 +836,15 @@ function About() {
               whiteSpace: 'nowrap',
               display: 'block',
               margin: isMobile ? '0 auto' : 0,
+              transition: 'background 0.15s, transform 0.15s',
+            }}
+            onMouseEnter={e => {
+              e.currentTarget.style.background = '#8b0000'
+              e.currentTarget.style.transform = 'translateY(-2px)'
+            }}
+            onMouseLeave={e => {
+              e.currentTarget.style.background = '#cc0000'
+              e.currentTarget.style.transform = 'translateY(0)'
             }}
           >
              View Candidates
