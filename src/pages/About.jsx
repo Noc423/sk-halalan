@@ -355,6 +355,7 @@ function About() {
           <div style={{
             display: 'flex',
             alignItems: 'center',
+            textAlign: 'left',
             gap: '24px',
             flexWrap: isMobile ? 'wrap' : 'nowrap',
           }}>
@@ -602,6 +603,7 @@ function About() {
         {/* ============================================= */}
         <div style={{
           display: 'grid',
+          textAlign: 'left',
           gridTemplateColumns: isDesktop ? '1fr 1fr' : '1fr',
           gap: '20px',
         }}>

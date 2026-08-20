@@ -390,6 +390,7 @@ function Home() {
           <p style={{
             fontSize: isMobile ? '13px' : '14px',
             color: '#555',
+            textAlign: 'left',
             lineHeight: 1.8,
           }}>
             SK Halalan 2026 is an official online candidate information platform for the 
