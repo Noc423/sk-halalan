@@ -232,16 +232,16 @@ function About() {
               animation: 'pulse 2s infinite',
             }} />
             <span style={{
-              fontSize: isMobile ? '10px' : '11px',
+              fontSize: isMobile ? '10px' : '12px',
               color: '#ffaaaa',
-              letterSpacing: '0.14em',
+              letterSpacing: '0.12em',
               textTransform: 'uppercase',
               fontWeight: 500,
             }}>
               Official SK Halalan 2026
             </span>
             <div style={{
-              width: '32px',
+              width: '30px',
               height: '1px',
               background: '#ff6666',
               animation: 'pulse 2s infinite',
@@ -250,8 +250,8 @@ function About() {
 
           {/* Main title */}
           <h1 style={{
-            fontSize: isMobile ? '28px' : '42px',
-            fontWeight: 600,
+            fontSize: isMobile ? '26px' : isTablet ? '36px' : '48px',
+            fontWeight: 700,
             color: '#fff',
             fontFamily: 'Georgia, serif',
             marginBottom: '10px',
@@ -259,7 +259,7 @@ function About() {
             // Text shadow for depth
             textShadow: '0 2px 20px rgba(0,0,0,0.3)',
           }}>
-            About SK Halalan{' '}
+            About SK Halalan{'  '}
             <span style={{ color: '#ffaaaa' }}>2026</span>
           </h1>
 
@@ -267,7 +267,7 @@ function About() {
 
           {/* Divider line */}
           <div style={{
-            width: '200px',
+            width: '120px',
             height: '2px',
             background: 'rgba(255,100,100,0.5)',
             margin: '0 auto 14px',
@@ -464,12 +464,12 @@ function About() {
 
           {/* WHO CAN RUN */}
           <Card className="hover-card">
-            <SectionTitle icon="🏃" title="Who Can Run for SK?" />
+            <SectionTitle title="Who Can Run for SK?" />
             <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '14px' }}>
               {[
                 'Filipino citizen',
                 'At least 15 years old and not more than 30 years old on election day',
-                'A resident of the barangay for at least six (6) months immediately preceding the election',
+                'A resident of the barangay for at least six (6) months',
                 'Not disqualified by law',
               ].map((item, i) => (
                 <div key={i} style={{ display: 'flex', alignItems: 'flex-start', gap: '10px' }}>
