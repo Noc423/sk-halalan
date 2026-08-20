@@ -151,7 +151,7 @@ function Navbar() {
 
         {/* Left: official government label */}
         <span style={{ 
-          fontSize: '11px', 
+          fontSize: '7px', 
           color: '#ffcccc',
         }}>
           Republic of the Philippines · Municipality of Candaba · Pampanga
@@ -161,7 +161,7 @@ function Navbar() {
         <div style={{ 
           display: 'flex', 
           alignItems: 'center',
-          gap: '14px',
+          gap: '13px',
         }}>
 
           {/* Each link has className for hover effect */}
@@ -169,7 +169,7 @@ function Navbar() {
             href="#" 
             className="top-strip-link"
             style={{ 
-              fontSize: '11px', 
+              fontSize: '7px', 
               color: '#ffcccc', 
               textDecoration: 'none',
               transition: 'color 0.15s',
@@ -188,7 +188,7 @@ function Navbar() {
             href="#" 
             className="top-strip-link"
             style={{ 
-              fontSize: '11px', 
+              fontSize: '7px', 
               color: '#ffcccc', 
               textDecoration: 'none',
               transition: 'color 0.15s',
@@ -207,7 +207,7 @@ function Navbar() {
             href="#" 
             className="top-strip-link"
             style={{ 
-              fontSize: '11px', 
+              fontSize: '7px', 
               color: '#ffcccc', 
               textDecoration: 'none',
               transition: 'color 0.15s',
