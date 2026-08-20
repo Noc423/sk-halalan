@@ -465,7 +465,7 @@ function About() {
           {/* WHO CAN RUN */}
           <Card className="hover-card">
             <SectionTitle title="Who Can Run for SK?" />
-            <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', marginBottom: '14px' }}>
+            <div style={{ display: 'flex', flexDirection: 'column', gap: '9px', marginBottom: '14px' }}>
               {[
                 'Filipino citizen',
                 'At least 15 years old and not more than 30 years old on election day',
@@ -486,7 +486,14 @@ function About() {
                   }}>
                     <span style={{ color: '#fff', fontSize: '10px', fontWeight: 700 }}>✓</span>
                   </div>
-                  <span style={{ fontSize: '13px', color: '#444', lineHeight: 1.6 }}>{item}</span>
+                  <span style={{ 
+                    fontSize: '13px', 
+                    color: '#444', 
+                    lineHeight: 1.6,
+                    textAlign: 'left',
+                  }}>
+                    {item}
+                  </span>
                 </div>
               ))}
             </div>
@@ -688,74 +695,150 @@ function About() {
           </Card>
         </div>
 
-        {/* ============================================= */}
-        {/* FAQ ACCORDION                               */}
-        {/* ============================================= */}
-        <Card>
-          <SectionTitle  title="Frequently Asked Questions" />
-          <div style={{
-            display: 'grid',
-            gridTemplateColumns: isDesktop ? '1fr 1fr' : '1fr',
-            gap: '10px',
-          }}>
-            {faqs.map((faq, i) => (
-              <div
-                key={i}
-                className="faq-item"
-                style={{
-                  border: '0.5px solid #eee',
-                  borderRadius: '8px',
-                  overflow: 'hidden',
-                  cursor: 'pointer',
-                  transition: 'border-color 0.15s',
-                }}
-                onClick={() => toggleFaq(i)}
-              >
-                <div style={{
-                  display: 'flex',
-                  alignItems: 'center',
-                  justifyContent: 'space-between',
-                  padding: '14px 16px',
-                  background: openFaq === i ? '#fff8f8' : '#fff',
-                  transition: 'background 0.15s',
-                }}>
-                  <span style={{
-                    fontSize: '13px',
-                    fontWeight: 500,
-                    color: openFaq === i ? '#8b0000' : '#333',
-                    lineHeight: 1.4,
-                    paddingRight: '10px',
-                  }}>
-                    {faq.question}
-                  </span>
-                  <span style={{
-                    fontSize: '12px',
-                    color: '#cc0000',
-                    flexShrink: 0,
-                    transition: 'transform 0.2s',
-                    transform: openFaq === i ? 'rotate(180deg)' : 'rotate(0deg)',
-                    display: 'inline-block',
-                  }}>
-                    ▾
-                  </span>
-                </div>
-                {openFaq === i && (
-                  <div style={{
-                    padding: '12px 16px',
-                    fontSize: '13px',
-                    color: '#555',
-                    lineHeight: 1.7,
-                    background: '#fff',
-                    borderTop: '0.5px solid #eee',
-                    animation: 'fadeIn 0.2s ease',
-                  }}>
-                    {faq.answer}
-                  </div>
-                )}
+
+          {/* ============================================= */}
+          {/* FAQ ACCORDION                               */}
+          {/* ============================================= */}
+          <Card>
+            <SectionTitle icon="❓" title="Frequently Asked Questions" />
+            <div style={{
+              display: 'grid',
+              gridTemplateColumns: isDesktop ? '1fr 1fr' : '1fr',
+              gap: '10px',
+            }}>
+
+              {/* Left column FAQs — index 0, 2, 4 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {faqs.filter((_, i) => i % 2 === 0).map((faq, i) => {
+                  const realIndex = i * 2
+                  return (
+                    <div
+                      key={realIndex}
+                      className="faq-item"
+                      style={{
+                        border: '0.5px solid #eee',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        transition: 'border-color 0.15s',
+                      }}
+                      onClick={() => toggleFaq(realIndex)}
+                    >
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '14px 16px',
+                        background: openFaq === realIndex ? '#fff8f8' : '#fff',
+                        transition: 'background 0.15s',
+                      }}>
+                        <span style={{
+                          fontSize: '13px',
+                          fontWeight: 500,
+                          color: openFaq === realIndex ? '#8b0000' : '#333',
+                          lineHeight: 1.4,
+                          paddingRight: '10px',
+                          textAlign: 'left',
+                        }}>
+                          {faq.question}
+                        </span>
+                        <span style={{
+                          fontSize: '12px',
+                          color: '#cc0000',
+                          flexShrink: 0,
+                          transition: 'transform 0.2s',
+                          transform: openFaq === realIndex ? 'rotate(180deg)' : 'rotate(0deg)',
+                          display: 'inline-block',
+                        }}>
+                          ▾
+                        </span>
+                      </div>
+                      {openFaq === realIndex && (
+                        <div style={{
+                          padding: '12px 16px',
+                          fontSize: '13px',
+                          color: '#555',
+                          lineHeight: 1.7,
+                          background: '#fff',
+                          borderTop: '0.5px solid #eee',
+                          textAlign: 'left',
+                          animation: 'fadeIn 0.2s ease',
+                        }}>
+                          {faq.answer}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
               </div>
-            ))}
-          </div>
-        </Card>
+
+              {/* Right column FAQs — index 1, 3, 5 */}
+              <div style={{ display: 'flex', flexDirection: 'column', gap: '10px' }}>
+                {faqs.filter((_, i) => i % 2 !== 0).map((faq, i) => {
+                  const realIndex = i * 2 + 1
+                  return (
+                    <div
+                      key={realIndex}
+                      className="faq-item"
+                      style={{
+                        border: '0.5px solid #eee',
+                        borderRadius: '8px',
+                        overflow: 'hidden',
+                        cursor: 'pointer',
+                        transition: 'border-color 0.15s',
+                      }}
+                      onClick={() => toggleFaq(realIndex)}
+                    >
+                      <div style={{
+                        display: 'flex',
+                        alignItems: 'center',
+                        justifyContent: 'space-between',
+                        padding: '14px 16px',
+                        background: openFaq === realIndex ? '#fff8f8' : '#fff',
+                        transition: 'background 0.15s',
+                      }}>
+                        <span style={{
+                          fontSize: '13px',
+                          fontWeight: 500,
+                          color: openFaq === realIndex ? '#8b0000' : '#333',
+                          lineHeight: 1.4,
+                          paddingRight: '10px',
+                          textAlign: 'left',
+                        }}>
+                          {faq.question}
+                        </span>
+                        <span style={{
+                          fontSize: '12px',
+                          color: '#cc0000',
+                          flexShrink: 0,
+                          transition: 'transform 0.2s',
+                          transform: openFaq === realIndex ? 'rotate(180deg)' : 'rotate(0deg)',
+                          display: 'inline-block',
+                        }}>
+                          ▾
+                        </span>
+                      </div>
+                      {openFaq === realIndex && (
+                        <div style={{
+                          padding: '12px 16px',
+                          fontSize: '13px',
+                          color: '#555',
+                          lineHeight: 1.7,
+                          background: '#fff',
+                          borderTop: '0.5px solid #eee',
+                          textAlign: 'left',
+                          animation: 'fadeIn 0.2s ease',
+                        }}>
+                          {faq.answer}
+                        </div>
+                      )}
+                    </div>
+                  )
+                })}
+              </div>
+
+            </div>
+          </Card>
 
         {/* ============================================= */}
         {/* DISCLAIMER                                  */}
