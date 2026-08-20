@@ -101,7 +101,7 @@ function About() {
       {/* ================================================ */}
       <div style={{
         position: 'relative',
-        height: isMobile ? '220px' : '280px',
+        height: isMobile ? '220px' : '340px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -121,7 +121,7 @@ function About() {
         <div style={{
           position: 'absolute',
           inset: 0,
-          background: 'rgba(80,0,0,0.72)',
+          background: 'rgba(35,0,0,0.65)',
         }} />
 
         {/* Hero text — centered */}
@@ -375,7 +375,7 @@ function About() {
               borderRadius: '6px',
               padding: '10px 12px',
             }}>
-              <span style={{ fontSize: '14px', flexShrink: 0 }}>📋</span>
+
               <span style={{ fontSize: '11px', color: '#8b0000', lineHeight: 1.5 }}>
                 For complete qualifications and disqualifications, please refer
                 to the Omnibus Election Code and COMELEC guidelines.
