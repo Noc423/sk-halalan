@@ -251,7 +251,7 @@ function About() {
           {/* Main title */}
           <h1 style={{
             fontSize: isMobile ? '28px' : '42px',
-            fontWeight: 700,
+            fontWeight: 600,
             color: '#fff',
             fontFamily: 'Georgia, serif',
             marginBottom: '10px',
