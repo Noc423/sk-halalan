@@ -250,7 +250,7 @@ function About() {
 
           {/* Main title */}
           <h1 style={{
-            fontSize: isMobile ? '26px' : isTablet ? '36px' : '48px',
+            fontSize: isMobile ? '25px' : '39px',
             fontWeight: 700,
             color: '#fff',
             fontFamily: 'Georgia, serif',
@@ -620,7 +620,7 @@ function About() {
 
               <div>
                 <div style={{ fontSize: '12px', fontWeight: 600, color: '#8b0000', }}>
-                Vote wisely. Vote responsibly. || 
+                Vote wisely. Vote responsibly. 
                 </div>
                 <div style={{ fontSize: '11px', color: '#666' }}>
                     Your voice. Your choice. Your future.
