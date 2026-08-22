@@ -385,22 +385,6 @@ function About() {
             </div>
 
             {/* Illustration — desktop only */}
-            {isDesktop && (
-              <div style={{
-                width: '160px',
-                height: '120px',
-                background: 'linear-gradient(135deg, #fff0f0, #ffd6d6)',
-                borderRadius: '12px',
-                display: 'flex',
-                alignItems: 'center',
-                justifyContent: 'center',
-                fontSize: '60px',
-                flexShrink: 0,
-                border: '1px solid #ffcccc',
-              }}>
-                🙌
-              </div>
-            )}
           </div>
         </Card>
 

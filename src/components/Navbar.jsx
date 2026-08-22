@@ -143,33 +143,34 @@ function Navbar() {
       {/* ================================================ */}
       <div style={{ 
         background: '#8b0000', 
-        padding: '5px 32px', 
+        padding: '5px 22px', 
         display: 'flex', 
+        height: '40px',
         alignItems: 'center', 
         justifyContent: 'space-between',
       }}>
 
         {/* Left: official government label */}
         <span style={{ 
-          fontSize: '7px', 
+          fontSize: '11px', 
           color: '#ffcccc',
         }}>
-          Republic of the Philippines · Municipality of Candaba · Pampanga
+          Republic of the Philippines 
         </span>
 
         {/* Right: quick links with dividers between them */}
         <div style={{ 
           display: 'flex', 
           alignItems: 'center',
-          gap: '13px',
+          gap: '5px',
         }}>
 
           {/* Each link has className for hover effect */}
           <a 
-            href="#" 
+            href="https://www.comelec.gov.ph" 
             className="top-strip-link"
             style={{ 
-              fontSize: '7px', 
+              fontSize: '9px', 
               color: '#ffcccc', 
               textDecoration: 'none',
               transition: 'color 0.15s',
@@ -185,10 +186,10 @@ function Navbar() {
           }}/>
 
           <a 
-            href="#" 
+            href="https://www.officialgazette.gov.ph" 
             className="top-strip-link"
             style={{ 
-              fontSize: '7px', 
+              fontSize: '9px', 
               color: '#ffcccc', 
               textDecoration: 'none',
               transition: 'color 0.15s',
@@ -204,10 +205,10 @@ function Navbar() {
           }}/>
 
           <a 
-            href="#" 
+            href="mailto:nicolepamintuan16@gmail.com" 
             className="top-strip-link"
             style={{ 
-              fontSize: '7px', 
+              fontSize: '9px', 
               color: '#ffcccc', 
               textDecoration: 'none',
               transition: 'color 0.15s',
