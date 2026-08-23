@@ -48,71 +48,95 @@ function Leadership() {
   ]
 
   // ================================================
-  // OFFICIAL CARD — for Mayor and Vice Mayor
+  // LEADER CARD — Mayor and Vice Mayor
+  // Mobile: photo top, info below, centered
+  // Desktop: photo left, info right
   // ================================================
-  const LeaderCard = ({ official, color }) => (
+  const LeaderCard = ({ official }) => (
     <div style={{
       background: '#fff',
       border: '0.5px solid #eee',
       borderRadius: '12px',
       overflow: 'hidden',
       flex: 1,
-      minWidth: isMobile ? '100%' : '300px',
       animation: 'fadeUp 0.6s ease both',
     }}>
 
-      {/* Card header label */}
+      {/* Card label — MAYOR or VICE MAYOR */}
       <div style={{
-        background: '#8b0000',
-        padding: '8px 16px',
-        display: 'inline-block',
-        borderRadius: '0 0 8px 0',
+        display: 'flex',
+        justifyContent: 'center',
+        paddingTop: '16px',
       }}>
-        <span style={{
-          fontSize: '11px',
-          fontWeight: 700,
-          color: '#fff',
-          letterSpacing: '0.1em',
-          textTransform: 'uppercase',
+        <div style={{
+          background: '#8b0000',
+          padding: '6px 20px',
+          borderRadius: '4px',
         }}>
-          {official.position === 'Municipal Mayor' ? 'Mayor' : 'Vice Mayor'}
-        </span>
+          <span style={{
+            fontSize: '11px',
+            fontWeight: 700,
+            color: '#fff',
+            letterSpacing: '0.1em',
+            textTransform: 'uppercase',
+          }}>
+            {official.position === 'Municipal Mayor' ? 'Mayor' : 'Vice Mayor'}
+          </span>
+        </div>
       </div>
 
-      {/* Card body */}
+      {/* Card body — column on mobile, row on desktop */}
       <div style={{
         padding: '20px',
         display: 'flex',
         gap: '20px',
         alignItems: 'flex-start',
-        flexWrap: isMobile ? 'wrap' : 'nowrap',
+        flexDirection: isMobile ? 'column' : 'row',
       }}>
 
-        {/* Photo */}
+        {/* ======================================= */}
+        {/* PHOTO                                  */}
+        {/* Uses contain so photo never zooms      */}
+        {/* Background fills remaining space       */}
+        {/* ======================================= */}
         <div style={{
-          width: isMobile ? '100%' : '150px',
-          height: isMobile ? '200px' : '180px',
+          // Full width on mobile, fixed width on desktop
+          width: isMobile ? '100%' : '160px',
+          // Taller on mobile for better visibility
+          height: isMobile ? '350px' : '200px',
           flexShrink: 0,
           borderRadius: '8px',
           overflow: 'hidden',
-          background: '#f5f5f5',
+          background: '#e8e8e8',
+          display: 'flex',
+          alignItems: 'flex-start',
+          justifyContent: 'center',
         }}>
           <img
             src={official.photo}
             alt={official.name}
             style={{
+              // contain = shows full photo, no cropping, no zooming
               width: '100%',
               height: '100%',
               objectFit: 'cover',
               objectPosition: 'top',
+              display: 'block',
+              // Prevents browser from scaling
+              imageRendering: 'auto',
             }}
           />
         </div>
 
         {/* Info */}
-        <div style={{ flex: 1 }}>
+        <div style={{
+          flex: 1,
+          // Center on mobile, left on desktop
+          textAlign: isMobile ? 'center' : 'left',
+          width: '100%',
+        }}>
           <h3 style={{
-            fontSize: isMobile ? '16px' : '18px',
+            fontSize: '17px',
             fontWeight: 700,
             color: '#8b0000',
             fontFamily: 'Georgia, serif',
@@ -120,30 +144,31 @@ function Leadership() {
           }}>
             {official.name}
           </h3>
+
           <div style={{
             fontSize: '13px',
             color: '#cc0000',
             fontWeight: 600,
-            marginBottom: '12px',
+            marginBottom: '10px',
           }}>
             {official.position}
           </div>
 
-          {/* Red divider */}
+          {/* Red divider — centered on mobile */}
           <div style={{
             width: '32px',
             height: '2px',
             background: '#cc0000',
             borderRadius: '1px',
-            marginBottom: '12px',
+            marginBottom: '10px',
+            margin: isMobile ? '0 auto 10px' : '0 0 10px',
           }} />
 
           <p style={{
             fontSize: '13px',
             color: '#555',
             lineHeight: 1.7,
-            marginBottom: '14px',
-            textAlign: 'left',
+            textAlign: isMobile ? 'center' : 'left',
           }}>
             {official.description}
           </p>
@@ -156,14 +181,12 @@ function Leadership() {
         padding: '10px 20px',
         display: 'flex',
         alignItems: 'center',
+        justifyContent: isMobile ? 'center' : 'flex-start',
         gap: '8px',
         background: '#fafafa',
       }}>
         <span style={{ fontSize: '14px' }}>👤</span>
-        <span style={{
-          fontSize: '12px',
-          color: '#666',
-        }}>
+        <span style={{ fontSize: '12px', color: '#666' }}>
           Term: {official.term}
         </span>
       </div>
@@ -172,18 +195,19 @@ function Leadership() {
 
   // ================================================
   // SB MEMBER CARD
+  // Fixed photo height — no zooming
   // ================================================
   const SBCard = ({ member, index }) => (
-    <div style={{
-      background: '#fff',
-      border: '0.5px solid #eee',
-      borderRadius: '10px',
-      overflow: 'hidden',
-      textAlign: 'center',
-      animation: `fadeUp 0.5s ease ${index * 0.08}s both`,
-      transition: 'transform 0.2s, box-shadow 0.2s',
-      cursor: 'default',
-    }}
+    <div
+      style={{
+        background: '#fff',
+        border: '0.5px solid #eee',
+        borderRadius: '10px',
+        overflow: 'hidden',
+        textAlign: 'center',
+        animation: `fadeUp 0.5s ease ${index * 0.08}s both`,
+        transition: 'transform 0.2s, box-shadow 0.2s',
+      }}
       onMouseEnter={e => {
         e.currentTarget.style.transform = 'translateY(-4px)'
         e.currentTarget.style.boxShadow = '0 8px 24px rgba(0,0,0,0.08)'
@@ -194,26 +218,34 @@ function Leadership() {
       }}
     >
 
-      {/* Photo */}
+      {/* ======================================= */}
+      {/* PHOTO                                  */}
+      {/* Fixed height — photo never zooms       */}
+      {/* ======================================= */}
       <div style={{
         width: '100%',
-        height: '160px',
-        background: '#f5f5f5',
+        height: '250px',
         overflow: 'hidden',
+        background: '#e8e8e8',
+        display: 'flex',
+        alignItems: 'flex-start',
+        justifyContent: 'center',
       }}>
         {member.photo ? (
           <img
             src={member.photo}
             alt={member.name}
             style={{
+              // Width 100%, height auto = natural size, no zoom
               width: '100%',
               height: '100%',
               objectFit: 'cover',
-              objectPosition: 'top',
+              objectPosition: 'top center',
+              display: 'block',
             }}
           />
         ) : (
-          // Placeholder when no photo
+          // Placeholder for missing photo
           <div style={{
             width: '100%',
             height: '100%',
@@ -221,20 +253,20 @@ function Leadership() {
             alignItems: 'center',
             justifyContent: 'center',
             background: '#fff0f0',
-            fontSize: '48px',
+            fontSize: '52px',
           }}>
             👤
           </div>
         )}
       </div>
 
-      {/* Info */}
-      <div style={{ padding: '12px 10px' }}>
+      {/* Name and position */}
+      <div style={{ padding: '12px 10px 8px' }}>
         <div style={{
           fontSize: '12px',
           fontWeight: 700,
           color: '#333',
-          marginBottom: '3px',
+          marginBottom: '4px',
           lineHeight: 1.3,
         }}>
           {member.name}
@@ -243,7 +275,6 @@ function Leadership() {
           fontSize: '11px',
           color: '#cc0000',
           fontWeight: 600,
-          marginBottom: '6px',
         }}>
           SB Member
         </div>
@@ -252,7 +283,7 @@ function Leadership() {
       {/* Term footer */}
       <div style={{
         borderTop: '0.5px solid #eee',
-        padding: '6px 10px',
+        padding: '7px 10px',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -260,7 +291,9 @@ function Leadership() {
         background: '#fafafa',
       }}>
         <span style={{ fontSize: '12px' }}>👤</span>
-        <span style={{ fontSize: '10px', color: '#888' }}>Term: {member.term}</span>
+        <span style={{ fontSize: '10px', color: '#888' }}>
+          Term: {member.term}
+        </span>
       </div>
     </div>
   )
@@ -268,7 +301,9 @@ function Leadership() {
   return (
     <div style={{ background: '#f5f5f5' }}>
 
-      {/* Animations */}
+      {/* ================================================ */}
+      {/* ANIMATIONS                                      */}
+      {/* ================================================ */}
       <style>{`
         @keyframes fadeUp {
           from { opacity: 0; transform: translateY(24px); }
@@ -295,25 +330,23 @@ function Leadership() {
         overflow: 'hidden',
       }}>
 
-        {/* Background */}
+        {/* Background — no zoom animation */}
         <div style={{
           position: 'absolute',
           inset: 0,
           backgroundImage: "url('/candaba-hall.png')",
           backgroundSize: 'cover',
           backgroundPosition: 'center top',
-          transform: heroVisible ? 'scale(1)' : 'scale(1.06)',
-          transition: 'transform 1.2s ease',
         }} />
 
-        {/* Tint */}
+        {/* Dark red tint */}
         <div style={{
           position: 'absolute',
           inset: 0,
           background: 'rgba(80,0,0,0.70)',
         }} />
 
-        {/* Pattern */}
+        {/* Diagonal pattern */}
         <div style={{
           position: 'absolute',
           inset: 0,
@@ -322,7 +355,7 @@ function Leadership() {
           backgroundSize: '12px 12px',
         }} />
 
-        {/* Content */}
+        {/* Hero text */}
         <div style={{
           position: 'relative',
           padding: isMobile ? '0 20px' : '0 48px',
@@ -338,19 +371,9 @@ function Leadership() {
             fontSize: '12px',
             color: '#ffaaaa',
           }}>
-            <span
-              style={{ cursor: 'pointer' }}
-              onClick={() => navigate('/')}
-            >
-              Home
-            </span>
+            <span style={{ cursor: 'pointer' }} onClick={() => navigate('/')}>Home</span>
             <span>›</span>
-            <span
-              style={{ cursor: 'pointer' }}
-              onClick={() => navigate('/about')}
-            >
-              About
-            </span>
+            <span style={{ cursor: 'pointer' }} onClick={() => navigate('/about')}>About</span>
             <span>›</span>
             <span style={{ color: '#fff', fontWeight: 600 }}>Municipal Leadership</span>
           </div>
@@ -367,14 +390,13 @@ function Leadership() {
             Municipal Leadership
           </h1>
 
-          {/* Red accent line */}
+          {/* Red accent */}
           <div style={{
             width: '40px',
             height: '3px',
             background: '#cc0000',
             borderRadius: '2px',
             marginBottom: '12px',
-            animation: 'pulse 2s infinite',
           }} />
 
           {/* Description */}
@@ -403,10 +425,11 @@ function Leadership() {
         gap: '32px',
       }}>
 
-        {/* =========================================== */}
-        {/* SECTION HEADER                            */}
-        {/* =========================================== */}
-        <div style={{ textAlign: 'center', animation: 'fadeUp 0.6s ease both' }}>
+        {/* Section header */}
+        <div style={{
+          textAlign: 'center',
+          animation: 'fadeUp 0.6s ease both',
+        }}>
           <div style={{ fontSize: '32px', marginBottom: '8px' }}>🏛️</div>
           <h2 style={{
             fontSize: isMobile ? '22px' : '28px',
@@ -424,12 +447,11 @@ function Leadership() {
 
         {/* =========================================== */}
         {/* MAYOR + VICE MAYOR                        */}
-        {/* Side by side on desktop, stacked on mobile */}
         {/* =========================================== */}
         <div style={{
           display: 'flex',
           gap: '20px',
-          flexWrap: isMobile ? 'wrap' : 'nowrap',
+          flexDirection: isMobile ? 'column' : 'row',
         }}>
           <LeaderCard official={mayor} />
           <LeaderCard official={viceMayor} />
@@ -440,7 +462,7 @@ function Leadership() {
         {/* =========================================== */}
         <div>
 
-          {/* Section label */}
+          {/* Section divider */}
           <div style={{
             display: 'flex',
             alignItems: 'center',
@@ -454,9 +476,10 @@ function Leadership() {
               fontSize: '11px',
               fontWeight: 700,
               letterSpacing: '0.1em',
-              padding: '6px 16px',
+              padding: '6px 20px',
               borderRadius: '99px',
               textTransform: 'uppercase',
+              whiteSpace: 'nowrap',
             }}>
               Sangguniang Bayan Members
             </div>
@@ -490,19 +513,20 @@ function Leadership() {
           display: 'flex',
           alignItems: 'center',
           gap: '28px',
-          flexWrap: isMobile ? 'wrap' : 'nowrap',
+          flexDirection: isMobile ? 'column' : 'row',
           animation: 'fadeUp 0.6s ease both',
           position: 'relative',
           overflow: 'hidden',
+          textAlign: isMobile ? 'center' : 'left',
         }}>
 
           {/* Decorative watermark */}
           <div style={{
             position: 'absolute',
-            right: '-20px',
+            right: '-10px',
             bottom: '-20px',
-            fontSize: '120px',
-            opacity: 0.04,
+            fontSize: '140px',
+            opacity: 0.03,
             userSelect: 'none',
           }}>
             🏛️
@@ -535,20 +559,19 @@ function Leadership() {
               A Message to the People
             </h3>
 
-            {/* Red underline */}
             <div style={{
               width: '32px',
               height: '2px',
               background: '#cc0000',
               borderRadius: '1px',
-              marginBottom: '12px',
+              margin: isMobile ? '0 auto 12px' : '0 0 12px',
             }} />
 
             <p style={{
               fontSize: '13px',
               color: '#555',
               lineHeight: 1.8,
-              textAlign: 'left',
+              textAlign: isMobile ? 'center' : 'left',
             }}>
               We, the local leaders of Candaba, remain committed to serving our people
               with integrity, dedication, and compassion. Together, let us build a brighter
