@@ -41,7 +41,7 @@ function Leadership() {
     { name: 'Hon. Joy Marie M. Sagum', photo: '/images/joy.jpg', term: '2025 – 2028' },
     { name: 'Hon. Quenie A. Culala', photo: '/images/Quenie.jpg', term: '2025 – 2028' },
     { name: 'Hon. Camille Dela Cruz Bulaon', photo: '/images/Camille.jpg', term: '2025 – 2028' },
-    { name: 'Hon. Elmer G. Gonzales', photo: null, term: '2025 – 2028' },
+    { name: 'Hon. Marino Macapagal', photo: null, term: '2025 – 2028' },
     { name: 'Hon. Lycca N. Basa', photo: '/images/lycca.jpg', term: '2025 – 2028' },
     { name: 'Hon. Alvin M. Carpio', photo: '/images/Alvin.jpg', term: '2025 – 2028' },
     { name: 'Hon. Erlinda P. Salac', photo: '/images/Erlinda.jpg', term: '2025 – 2028' },
